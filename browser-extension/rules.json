@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "priority": 2,
+    "priority": 1,
     "action": {
       "type": "redirect",
       "redirect": {
@@ -17,7 +17,23 @@
   },
   {
     "id": 2,
-    "priority": 2,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://www.youtube.com/"
+      }
+    },
+    "condition": {
+      "regexFilter": "^https?://(www\\.)?youtube\\.com/reel(/.*)?$",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "priority": 1,
     "action": {
       "type": "redirect",
       "redirect": {
@@ -32,24 +48,8 @@
     }
   },
   {
-    "id": 3,
-    "priority": 2,
-    "action": {
-      "type": "redirect",
-      "redirect": {
-        "url": "https://www.youtube.com/"
-      }
-    },
-    "condition": {
-      "regexFilter": "^https?://(www\\.)?youtube-nocookie\\.com/shorts(/.*)?$",
-      "resourceTypes": [
-        "main_frame"
-      ]
-    }
-  },
-  {
     "id": 4,
-    "priority": 2,
+    "priority": 1,
     "action": {
       "type": "redirect",
       "redirect": {
@@ -68,23 +68,6 @@
     "id": 5,
     "priority": 2,
     "action": {
-      "type": "redirect",
-      "redirect": {
-        "url": "https://www.youtube.com/"
-      }
-    },
-    "condition": {
-      "regexFilter": "^https?://(www\\.)?youtube\\.com/shorts/embed(/.*)?$",
-      "resourceTypes": [
-        "main_frame",
-        "sub_frame"
-      ]
-    }
-  },
-  {
-    "id": 6,
-    "priority": 1,
-    "action": {
       "type": "block"
     },
     "condition": {
@@ -95,8 +78,8 @@
     }
   },
   {
-    "id": 7,
-    "priority": 1,
+    "id": 6,
+    "priority": 2,
     "action": {
       "type": "block"
     },
@@ -104,65 +87,6 @@
       "regexFilter": "^https?://youtubei\\.googleapis\\.com/youtubei/v1/shorts(/.*)?$",
       "resourceTypes": [
         "xmlhttprequest"
-      ]
-    }
-  },
-  {
-    "id": 8,
-    "priority": 1,
-    "action": {
-      "type": "block"
-    },
-    "condition": {
-      "urlFilter": "||youtube.com/s/desktop/*/jsbin/desktop-shorts*",
-      "resourceTypes": [
-        "script"
-      ]
-    }
-  },
-  {
-    "id": 9,
-    "priority": 1,
-    "action": {
-      "type": "block"
-    },
-    "condition": {
-      "urlFilter": "||youtube.com/s/desktop/*/jsbin/shorts*",
-      "resourceTypes": [
-        "script"
-      ]
-    }
-  },
-  {
-    "id": 10,
-    "priority": 2,
-    "action": {
-      "type": "redirect",
-      "redirect": {
-        "url": "https://www.youtube.com/"
-      }
-    },
-    "condition": {
-      "regexFilter": "^https?://(www\\.)?youtube\\.com/reel(/.*)?$",
-      "resourceTypes": [
-        "main_frame"
-      ]
-    }
-  },
-  {
-    "id": 11,
-    "priority": 1,
-    "action": {
-      "type": "block"
-    },
-    "condition": {
-      "regexFilter": "reelWatchEndpoint|reelItemEndpoint|shortsLockupViewModel",
-      "resourceTypes": [
-        "xmlhttprequest"
-      ],
-      "domainType": "thirdParty",
-      "initiatorDomains": [
-        "youtube.com"
       ]
     }
   }
