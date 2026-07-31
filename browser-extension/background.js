@@ -1,67 +1,69 @@
 /**
- * YT Shorts Block -- Background Service Worker (Manifest V3)
+ * ============================================================
+ * YT-Shorts-Block — Background Service Worker v2.0
+ * ============================================================
+ * Manages declarativeNetRequest rules, badge, and messaging.
+ *
+ * @author  ShoumikBalaSomu
+ * @license MIT
+ * ============================================================
  */
 
+// Set badge on install
 chrome.runtime.onInstalled.addListener(function (details) {
-  if (details.reason === "install") {
-    chrome.storage.local.set({
-      enabled: true,
-      blockCount: 0,
-      installDate: Date.now(),
-      version: chrome.runtime.getManifest().version
-    });
-  }
-  if (details.reason === "update") {
-    chrome.storage.local.set({ version: chrome.runtime.getManifest().version });
-  }
-  chrome.contextMenus.create({
-    id: "ytsb-toggle",
-    title: "Toggle YT Shorts Block",
-    contexts: ["action"]
-  });
+  chrome.action.setBadgeText({ text: 'ON' });
+  chrome.action.setBadgeBackgroundColor({ color: '#e53935' });
+  console.log('[YT-Shorts-Block] Installed/Updated:', details.reason);
 });
 
-chrome.storage.onChanged.addListener(function (changes) {
-  if (changes.enabled) {
-    var isEnabled = changes.enabled.newValue;
-    chrome.declarativeNetRequest.updateEnabledRulesets({
-      enableRulesetIds: isEnabled ? ["yt_shorts_rules"] : [],
-      disableRulesetIds: isEnabled ? [] : ["yt_shorts_rules"]
-    });
-  }
-});
-
+// Handle messages from popup
 chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-  if (msg.type === "GET_STATE") {
-    chrome.storage.local.get(["enabled", "blockCount"], function (data) {
-      sendResponse({ enabled: data.enabled !== false, count: data.blockCount || 0 });
+  if (msg.type === 'GET_STATE') {
+    chrome.storage.local.get(['ytShortsBlockEnabled', 'ytShortsBlockCount'], function (data) {
+      sendResponse({
+        enabled: data.ytShortsBlockEnabled !== false,
+        count: data.ytShortsBlockCount || 0,
+      });
     });
     return true;
   }
-  if (msg.type === "TOGGLE") {
-    chrome.storage.local.set({ enabled: msg.enabled });
-    chrome.tabs.query({ url: "*://*.youtube.com/*" }, function (tabs) {
-      tabs.forEach(function (tab) {
-        chrome.tabs.sendMessage(tab.id, { type: "TOGGLE", enabled: msg.enabled }).catch(function () {});
+
+  if (msg.type === 'SET_ENABLED') {
+    chrome.storage.local.set({ ytShortsBlockEnabled: msg.enabled });
+    chrome.action.setBadgeText({ text: msg.enabled ? 'ON' : 'OFF' });
+    chrome.action.setBadgeBackgroundColor({ color: msg.enabled ? '#e53935' : '#757575' });
+
+    // Enable/disable DNR rules
+    if (msg.enabled) {
+      chrome.declarativeNetRequest.updateEnabledRulesets({
+        enableRulesetIds: ['yt_shorts_rules'],
       });
-    });
+    } else {
+      chrome.declarativeNetRequest.updateEnabledRulesets({
+        disableRulesetIds: ['yt_shorts_rules'],
+      });
+    }
     sendResponse({ ok: true });
     return true;
   }
-  if (msg.type === "BLOCK_COUNT") {
-    chrome.storage.local.get(["blockCount"], function (data) {
-      var newCount = (data.blockCount || 0) + (msg.count || 0);
-      chrome.storage.local.set({ blockCount: newCount });
-      sendResponse({ count: newCount });
-    });
+
+  if (msg.type === 'RESET_COUNT') {
+    chrome.storage.local.set({ ytShortsBlockCount: 0 });
+    sendResponse({ ok: true });
     return true;
   }
 });
 
-chrome.contextMenus.onClicked.addListener(function (info) {
-  if (info.menuItemId === "ytsb-toggle") {
-    chrome.storage.local.get(["enabled"], function (data) {
-      chrome.storage.local.set({ enabled: !(data.enabled !== false) });
-    });
+// Listen for tab updates to catch shorts URLs that bypass DNR
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  if (changeInfo.url && /youtube\.com\/shorts/i.test(changeInfo.url)) {
+    chrome.tabs.update(tabId, { url: 'https://www.youtube.com/' });
   }
 });
+
+// Also catch web navigation
+chrome.webNavigation.onBeforeNavigate.addListener(function (details) {
+  if (details.frameId === 0 && /youtube\.com\/shorts/i.test(details.url)) {
+    chrome.tabs.update(details.tabId, { url: 'https://www.youtube.com/' });
+  }
+}, { url: [{ hostSuffix: 'youtube.com' }] });
