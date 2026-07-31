@@ -1,0 +1,127 @@
+/**
+ * YT-Shorts-Block - Content CSS
+ * Hides all YouTube Shorts elements via CSS
+ * This runs at document_start for instant blocking
+ * 
+ * @author ShoumikBalaSomu
+ * @license MIT
+ */
+
+/* === Homepage Shorts Shelf === */
+ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
+ytd-rich-shelf-renderer[is-shorts],
+ytd-reel-shelf-renderer,
+ytd-rich-shelf-renderer,
+ytd-rich-section-renderer:has(ytd-reel-shelf-renderer) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* === Navigation Shorts Tab === */
+ytd-guide-entry-renderer:has(a[href="/shorts"]),
+ytd-mini-guide-entry-renderer:has(a[href="/shorts"]),
+a[href="/shorts"],
+tp-yt-paper-item:has(a[href="/shorts"]) {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* === Search Results Shorts === */
+ytd-reel-item-renderer,
+ytd-item-section-renderer:has(ytd-reel-shelf-renderer) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* === Video Player Shorts Button === */
+.ytp-short-button,
+button[aria-label="Shorts"],
+ytd-reel-player-overlay-renderer,
+ytd-reel-video-renderer {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* === Recommendations / Up Next === */
+ytd-compact-reel-item-renderer,
+ytd-compact-link-renderer:has(#endpoint[href^="/shorts"]),
+ytd-compact-video-renderer:has(a[href^="/shorts"]),
+ytd-watch-next-secondary-results-renderer ytd-reel-shelf-renderer {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* === Channel Page Shorts Tab === */
+ytd-channel-tab-renderer:has-text(Shorts),
+tp-yt-paper-tab:has-text(Shorts) {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* === Notifications === */
+ytd-notification-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+}
+
+/* === Trending / Explore === */
+ytd-explore-renderer ytd-reel-shelf-renderer {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* === Mobile Web === */
+ytm-reel-shelf-renderer,
+ytm-reel-item-renderer,
+ytm-pivot-bar-item-renderer:has-text(Shorts),
+ytm-rich-shelf-renderer,
+ytm-compact-reel-item-renderer {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* === Comments / Community === */
+ytd-comment-thread-renderer:has(a[href^="/shorts"]),
+ytd-backstage-post-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+}
+
+/* === Playlists === */
+ytd-playlist-video-renderer:has(a[href^="/shorts"]),
+ytd-compact-playlist-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+}
+
+/* === Generic Catch-All === */
+ytd-rich-item-renderer:has(a[href^="/shorts"]),
+ytd-grid-video-renderer:has(a[href^="/shorts"]),
+ytd-video-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* === Shorts page overlay (if somehow loaded) === */
+ytd-shorts-renderer,
+ytd-reel-watch-renderer,
+reel-watch-sequence-renderer {
+  display: none !important;
+  visibility: hidden !important;
+  position: absolute !important;
+  left: -99999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
