@@ -1,77 +1,239 @@
 [
   {
     "id": 1,
-    "priority": 1,
+    "priority": 2,
     "action": {
       "type": "redirect",
-      "redirect": { "url": "https://www.youtube.com/" }
+      "redirect": {
+        "url": "https://www.youtube.com/"
+      }
     },
     "condition": {
       "urlFilter": "||youtube.com/shorts/*",
-      "resourceTypes": ["main_frame"]
+      "resourceTypes": [
+        "main_frame"
+      ]
     }
   },
   {
     "id": 2,
-    "priority": 1,
+    "priority": 2,
     "action": {
       "type": "redirect",
-      "redirect": { "url": "https://www.youtube.com/" }
+      "redirect": {
+        "url": "https://www.youtube.com/"
+      }
     },
     "condition": {
-      "urlFilter": "||youtube.com/shorts",
-      "resourceTypes": ["main_frame"]
+      "urlFilter": "|https://www.youtube.com/shorts|",
+      "resourceTypes": [
+        "main_frame"
+      ]
     }
   },
   {
     "id": 3,
-    "priority": 1,
+    "priority": 2,
     "action": {
       "type": "redirect",
-      "redirect": { "url": "https://www.youtube.com/" }
+      "redirect": {
+        "url": "https://www.youtube.com/"
+      }
     },
     "condition": {
       "urlFilter": "||m.youtube.com/shorts/*",
-      "resourceTypes": ["main_frame"]
+      "resourceTypes": [
+        "main_frame"
+      ]
     }
   },
   {
     "id": 4,
-    "priority": 1,
+    "priority": 2,
     "action": {
       "type": "redirect",
-      "redirect": { "url": "https://m.youtube.com/" }
+      "redirect": {
+        "url": "https://m.youtube.com/"
+      }
     },
     "condition": {
-      "urlFilter": "||m.youtube.com/shorts",
-      "resourceTypes": ["main_frame"]
+      "urlFilter": "|https://m.youtube.com/shorts|",
+      "resourceTypes": [
+        "main_frame"
+      ]
     }
   },
   {
     "id": 5,
-    "priority": 1,
-    "action": { "type": "block" },
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://www.youtube.com/"
+      }
+    },
     "condition": {
-      "urlFilter": "||youtubei.googleapis.com/youtubei/v1/reel/*",
-      "resourceTypes": ["xmlhttprequest"]
+      "urlFilter": "||youtube-nocookie.com/shorts/*",
+      "resourceTypes": [
+        "main_frame",
+        "sub_frame"
+      ]
     }
   },
   {
     "id": 6,
-    "priority": 1,
-    "action": { "type": "block" },
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://www.youtube.com/"
+      }
+    },
     "condition": {
-      "urlFilter": "||youtubei.googleapis.com/youtubei/v1/shorts/*",
-      "resourceTypes": ["xmlhttprequest"]
+      "urlFilter": "||youtube.com/embed/shorts/*",
+      "resourceTypes": [
+        "main_frame",
+        "sub_frame"
+      ]
     }
   },
   {
     "id": 7,
-    "priority": 1,
-    "action": { "type": "block" },
+    "priority": 2,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||youtube.com/shorts/*",
+      "resourceTypes": [
+        "sub_frame"
+      ]
+    }
+  },
+  {
+    "id": 10,
+    "priority": 2,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||youtubei.googleapis.com/youtubei/v1/reel/*",
+      "resourceTypes": [
+        "xmlhttprequest",
+        "other"
+      ]
+    }
+  },
+  {
+    "id": 11,
+    "priority": 2,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||youtubei.googleapis.com/youtubei/v1/shorts/*",
+      "resourceTypes": [
+        "xmlhttprequest",
+        "other"
+      ]
+    }
+  },
+  {
+    "id": 12,
+    "priority": 2,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||youtubei.googleapis.com/youtubei/v1/reel*",
+      "resourceTypes": [
+        "xmlhttprequest"
+      ],
+      "requestDomains": [
+        "youtubei.googleapis.com"
+      ]
+    }
+  },
+  {
+    "id": 15,
+    "priority": 2,
+    "action": {
+      "type": "block"
+    },
     "condition": {
       "urlFilter": "||youtube.com/s/desktop/*/jsbin/desktop-shorts*",
-      "resourceTypes": ["script"]
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 16,
+    "priority": 2,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||youtube.com/s/desktop/*/jsbin/shorts*",
+      "resourceTypes": [
+        "script"
+      ]
+    }
+  },
+  {
+    "id": 20,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||i.ytimg.com/vi/*/hqdefault_shorts*",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 21,
+    "priority": 1,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||i.ytimg.com/vi_shorts/*",
+      "resourceTypes": [
+        "image"
+      ]
+    }
+  },
+  {
+    "id": 25,
+    "priority": 2,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "url": "https://www.youtube.com/"
+      }
+    },
+    "condition": {
+      "urlFilter": "||music.youtube.com/shorts/*",
+      "resourceTypes": [
+        "main_frame"
+      ]
+    }
+  },
+  {
+    "id": 30,
+    "priority": 2,
+    "action": {
+      "type": "block"
+    },
+    "condition": {
+      "urlFilter": "||youtube.com/shorts/*",
+      "resourceTypes": [
+        "prefetch",
+        "other"
+      ]
     }
   }
 ]
