@@ -1,127 +1,161 @@
 /**
- * YT-Shorts-Block - Content CSS
- * Hides all YouTube Shorts elements via CSS
- * This runs at document_start for instant blocking
- * 
- * @author ShoumikBalaSomu
- * @license MIT
+ * YT Shorts Block — Content CSS
+ * Injected at document_start for zero-flash hiding.
+ * Every known Shorts element is hidden here.
  */
 
-/* === Homepage Shorts Shelf === */
-ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
-ytd-rich-shelf-renderer[is-shorts],
+/* ===== SHORTS SHELF / CAROUSEL (Search + Home) ===== */
 ytd-reel-shelf-renderer,
-ytd-rich-shelf-renderer,
-ytd-rich-section-renderer:has(ytd-reel-shelf-renderer) {
+ytd-reel-item-renderer,
+ytd-reel-video-renderer,
+ytd-reel-player-overlay-renderer,
+ytd-reel-player-header-renderer,
+ytd-reel-player-footer-renderer {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
   overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  position: absolute !important;
+  z-index: -99999 !important;
+  width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* ===== SHORTS IN SEARCH RESULTS ===== */
+ytd-search-renderer ytd-reel-item-renderer,
+ytd-search-renderer ytd-reel-shelf-renderer,
+ytd-item-section-renderer:has(ytd-reel-shelf-renderer),
+ytd-item-section-renderer:has(ytd-reel-item-renderer),
+ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
+ytd-rich-section-renderer:has(ytd-reel-item-renderer),
+ytd-rich-section-renderer:has(a[href*="/shorts"]) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
   pointer-events: none !important;
 }
 
-/* === Navigation Shorts Tab === */
+/* ===== SHORTS LINKS IN ANY CONTAINER ===== */
+ytd-rich-item-renderer:has(a[href*="/shorts"]),
+ytd-grid-video-renderer:has(a[href*="/shorts"]),
+ytd-video-renderer:has(a[href*="/shorts"]),
+ytd-compact-video-renderer:has(a[href*="/shorts"]),
+ytd-playlist-video-renderer:has(a[href*="/shorts"]),
+ytd-notification-renderer:has(a[href*="/shorts"]),
+ytd-lockup-view-model:has(a[href*="/shorts"]),
+ytd-structured-description-content-renderer:has(a[href*="/shorts"]) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  max-height: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ===== SHORTS NAVIGATION BUTTONS / TABS ===== */
 ytd-guide-entry-renderer:has(a[href="/shorts"]),
 ytd-mini-guide-entry-renderer:has(a[href="/shorts"]),
+tp-yt-paper-item:has(a[href="/shorts"]),
+ytd-pivot-bar-item-renderer:has(a[href="/shorts"]),
+ytm-pivot-bar-item-renderer:has(a[href="/shorts"]),
 a[href="/shorts"],
-tp-yt-paper-item:has(a[href="/shorts"]) {
+a[href^="/shorts/"] {
   display: none !important;
   visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  opacity: 0 !important;
   pointer-events: none !important;
+  position: absolute !important;
+  z-index: -99999 !important;
 }
 
-/* === Search Results Shorts === */
-ytd-reel-item-renderer,
-ytd-item-section-renderer:has(ytd-reel-shelf-renderer) {
+/* ===== SHORTS PLAYER PAGE ===== */
+ytd-short-form-video-renderer,
+ytd-shorts,
+#shorts-player,
+ytd-reel-watch-frame-renderer,
+ytd-reel-player-overlay-renderer {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
   overflow: hidden !important;
 }
 
-/* === Video Player Shorts Button === */
-.ytp-short-button,
-button[aria-label="Shorts"],
-ytd-reel-player-overlay-renderer,
-ytd-reel-video-renderer {
+/* ===== SHORTS BADGES / ICONS ===== */
+ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"],
+ytd-badge-supported-renderer:has-text("Shorts"),
+.ytd-badge-supported-renderer[aria-label*="Shorts"],
+#badge:has-text("Shorts") {
   display: none !important;
-  visibility: hidden !important;
-  pointer-events: none !important;
 }
 
-/* === Recommendations / Up Next === */
-ytd-compact-reel-item-renderer,
-ytd-compact-link-renderer:has(#endpoint[href^="/shorts"]),
-ytd-compact-video-renderer:has(a[href^="/shorts"]),
-ytd-watch-next-secondary-results-renderer ytd-reel-shelf-renderer {
+/* ===== SHORTS IN ENGAGEMENT PANELS ===== */
+ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-shorts"],
+ytd-engagement-panel-section-list-renderer:has(a[href*="/shorts"]) {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
   overflow: hidden !important;
 }
 
-/* === Channel Page Shorts Tab === */
-ytd-channel-tab-renderer:has-text(Shorts),
-tp-yt-paper-tab:has-text(Shorts) {
-  display: none !important;
-  visibility: hidden !important;
-}
-
-/* === Notifications === */
-ytd-notification-renderer:has(a[href^="/shorts"]) {
+/* ===== SHORTS IN CHANNEL PAGES ===== */
+tp-yt-paper-tab:has-text("Shorts"),
+ytd-channel-tab-renderer:has(a[href*="/shorts"]),
+ytd-c4-tabbed-header-renderer a[href*="/shorts"] {
   display: none !important;
 }
 
-/* === Trending / Explore === */
-ytd-explore-renderer ytd-reel-shelf-renderer {
+/* ===== SHORTS FILTER CHIP IN SEARCH ===== */
+yt-chip-cloud-chip-renderer:has-text("Shorts"),
+ytd-search-filter-renderer:has-text("Shorts") {
   display: none !important;
-  visibility: hidden !important;
 }
 
-/* === Mobile Web === */
+/* ===== MOBILE WEB (m.youtube.com) ===== */
 ytm-reel-shelf-renderer,
 ytm-reel-item-renderer,
-ytm-pivot-bar-item-renderer:has-text(Shorts),
-ytm-rich-shelf-renderer,
-ytm-compact-reel-item-renderer {
+ytm-short-form-video-renderer,
+ytm-pivot-bar-item-renderer:has(a[href="/shorts"]) {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
   overflow: hidden !important;
+}
+
+/* ===== NEWER 2024-2026 UI COMPONENTS ===== */
+ytd-lockup-view-model[overlay-style="SHORTS"],
+ytd-rich-grid-renderer ytd-lockup-view-model:has(a[href*="/shorts"]),
+ytd-watch-next-secondary-results-renderer:has(a[href*="/shorts"]) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* ===== CATCH-ALL: ANY ELEMENT WITH SHORTS HREF ===== */
+[href*="/shorts/"] {
+  display: none !important;
+  visibility: hidden !important;
   pointer-events: none !important;
 }
 
-/* === Comments / Community === */
-ytd-comment-thread-renderer:has(a[href^="/shorts"]),
-ytd-backstage-post-renderer:has(a[href^="/shorts"]) {
-  display: none !important;
-}
-
-/* === Playlists === */
-ytd-playlist-video-renderer:has(a[href^="/shorts"]),
-ytd-compact-playlist-renderer:has(a[href^="/shorts"]) {
-  display: none !important;
-}
-
-/* === Generic Catch-All === */
-ytd-rich-item-renderer:has(a[href^="/shorts"]),
-ytd-grid-video-renderer:has(a[href^="/shorts"]),
-ytd-video-renderer:has(a[href^="/shorts"]) {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  overflow: hidden !important;
-}
-
-/* === Shorts page overlay (if somehow loaded) === */
-ytd-shorts-renderer,
-ytd-reel-watch-renderer,
-reel-watch-sequence-renderer {
-  display: none !important;
-  visibility: hidden !important;
-  position: absolute !important;
-  left: -99999px !important;
-  width: 0 !important;
-  height: 0 !important;
-  overflow: hidden !important;
+/* ===== PREVENT LAYOUT SHIFT ===== */
+ytd-rich-grid-renderer,
+ytd-section-list-renderer,
+ytd-item-section-renderer {
+  transition: none !important;
 }
