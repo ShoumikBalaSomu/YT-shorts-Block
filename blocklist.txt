@@ -1,0 +1,65 @@
+! Title: Ultimate YouTube Shorts Blocker
+! Description: Completely blocks YouTube Shorts, hiding all UI elements, blocking API requests, and preventing any bypass methods. Compatible with uBlock Origin, Brave, and AdGuard.
+! Version: 1.0.0
+! Homepage: https://github.com/ShoumikBalaSomu/YT-shorts-Block
+! License: MIT
+
+! ==========================================
+! 1. NETWORK & URL BLOCKING
+! ==========================================
+! Block Shorts pages and redirects
+||youtube.com/shorts/*$document,important
+||m.youtube.com/shorts/*$document,important
+||youtube.com/watch*feature=shorts*$document,important
+||youtube.com/clip/*$document,important
+
+! Block Shorts API endpoints to save bandwidth and prevent recommendations
+||youtube.com/youtubei/v1/reel/*
+||youtube.com/youtubei/v1/next*$shorts*
+||youtube.com/youtubei/v1/player*$shorts*
+||youtube.com/api/stats/atr*shorts*
+
+! ==========================================
+! 2. UI ELEMENT HIDING (DESKTOP)
+! ==========================================
+! Hide Shorts tab in the left sidebar
+youtube.com##ytd-guide-entry-renderer:has(> tp-yt-paper-item[href="/shorts"])
+youtube.com##ytd-mini-guide-entry-renderer:has(> a[href="/shorts"])
+youtube.com##ytd-guide-entry-renderer:has-text(/Shorts/i)
+
+! Hide the entire Shorts shelf on the homepage
+youtube.com##ytd-rich-shelf-renderer[is-shorts]
+youtube.com##ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts])
+youtube.com##ytd-rich-shelf-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
+
+! Hide Shorts in search results and general video feeds
+youtube.com##ytd-video-renderer:has(a[href*="/shorts/"])
+youtube.com##ytd-rich-item-renderer:has(a[href*="/shorts/"])
+youtube.com##ytd-grid-video-renderer:has(a[href*="/shorts/"])
+youtube.com##ytd-compact-video-renderer:has(a[href*="/shorts/"])
+
+! Hide Shorts duration badge on thumbnails
+youtube.com##ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]
+
+! Hide Shorts tab on channel pages
+youtube.com##tp-yt-paper-tab:has-text(/Shorts/i)
+youtube.com##yt-tab-shape:has-text(/Shorts/i)
+
+! Hide the "Remix" button (often used to make Shorts)
+youtube.com##ytd-menu-renderer ytd-button-renderer:has-text(/Remix/i)
+
+! ==========================================
+! 3. UI ELEMENT HIDING (MOBILE WEB)
+! ==========================================
+m.youtube.com##ytm-guide-entry-renderer:has-text(/Shorts/i)
+m.youtube.com##ytm-rich-shelf-renderer
+m.youtube.com##ytm-video-with-context-renderer:has(a[href*="/shorts/"])
+m.youtube.com##ytm-compact-video-renderer:has(a[href*="/shorts/"])
+m.youtube.com##ytm-tab-header-renderer:has-text(/Shorts/i)
+
+! ==========================================
+! 4. ANTI-BYPASS & SCRIPTLET INJECTIONS
+! ==========================================
+! Prevent YouTube from auto-redirecting standard videos to the Shorts player
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_shorts_player_enabled, false)
+youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.kevlar_shorts_enabled, false)
