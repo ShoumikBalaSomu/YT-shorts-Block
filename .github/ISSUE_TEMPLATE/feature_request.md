@@ -1,24 +1,12 @@
 ---
 name: Feature Request
-about: Suggest a new feature or improvement
+about: Suggest a new feature
 title: '[FEATURE] '
 labels: enhancement
-assignees: ShoumikBalaSomu
 ---
 
-## Feature Description
-<!-- What feature would you like? -->
+## What feature?
 
+## Why needed?
 
-## Problem It Solves
-<!-- What problem does this solve? -->
-
-
-## Proposed Solution
-<!-- How do you think it should work? -->
-
-## Alternatives Considered
-<!-- Any alternative solutions you've thought of? -->
-
-## Additional Context
-<!-- Screenshots, links, references -->
+## How should it work?
