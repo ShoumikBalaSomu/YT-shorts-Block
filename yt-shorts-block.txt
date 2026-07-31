@@ -1,214 +1,77 @@
-! Title: 🚫 Ultimate YouTube Shorts Blocklist
-! Description: The most advanced YouTube Shorts blocker. Blocks ALL Shorts access methods, UI elements, API calls, redirects, and bypass attempts. Works with uBlock Origin, Brave Shields, AdGuard, and Pi-hole.
-! Version: 2026.07.31.1
-! Last modified: 2026-07-31
-! Expires: 1 day
-! Homepage: https://shoumikbalasomu.github.io/YT-shorts-Block/
-! License: MIT
-! Author: ShoumikBalaSomu
-! GitHub: https://github.com/ShoumikBalaSomu/YT-shorts-Block
-!
-! ============================================================
-!  SECTION 1: NETWORK / URL BLOCKING
-! ============================================================
-!
-! --- Core Shorts URLs ---
-||youtube.com/shorts/*$document
+! YT Shorts Block - Ultimate Edition  (MIT)
+! Hides the sidebar "Shorts" button + blocks Shorts on every surface.
+! uBlock Origin / Brave Shields / AdGuard. Scriptlets need uBO or AdGuard.
+
+! [1] SIDEBAR / NAV "SHORTS" BUTTON  (the row in your screenshot)
+www.youtube.com##ytd-guide-entry-renderer:has(a[href="/shorts"])
+www.youtube.com##ytd-guide-entry-renderer:has(a[href^="/shorts"])
+www.youtube.com##ytd-mini-guide-entry-renderer:has(a[href="/shorts"])
+www.youtube.com##ytd-mini-guide-entry-renderer:has(a[href^="/shorts"])
+www.youtube.com###guide a[href="/shorts"]
+www.youtube.com###guide a[href^="/shorts/"]
+www.youtube.com###guide-inner-content a[href="/shorts"]
+www.youtube.com##a#endpoint[href="/shorts"]
+m.youtube.com##ytm-pivot-bar-item-renderer:has(a[href="/shorts"])
+m.youtube.com##ytm-compact-link-renderer:has(a[href="/shorts"])
+m.youtube.com##ytm-guide-entry-renderer:has(a[href="/shorts"])
+m.youtube.com###guide a[href="/shorts"]
+
+! [2] DIRECT URL / DOCUMENT BLOCKS
 ||youtube.com/shorts$document
-||m.youtube.com/shorts/*$document
-||m.youtube.com/shorts$document
-||www.youtube.com/shorts/*$document
+||youtube.com/shorts/*$document
 ||www.youtube.com/shorts$document
+||www.youtube.com/shorts/*$document
+||m.youtube.com/shorts$document
+||m.youtube.com/shorts/*$document
 ||youtube-nocookie.com/shorts/*$document
-||youtube.googleapis.com/shorts/*
-||music.youtube.com/shorts/*$document
-||youtube.com/embed/shorts/*$document
-||youtube.com/embed/shorts$document
-!
-! --- Shorts Redirect & Bypass Prevention ---
-||youtube.com/shorts/*$redirect-rule=noop.txt
-||youtube.com/watch?v=*&feature=shorts$document
-||youtube.com/watch?feature=shorts$document
-||youtube.com/watch?v=*&app=shorts$document
 ||youtu.be/shorts/*$document
-||youtube.com/live/shorts/*$document
-||youtube.com/clip/shorts/*$document
-||youtube.com/gaming/shorts/*$document
-||youtube.com/premium/shorts/*$document
-||youtube.com/tv/shorts/*$document
-!
-! --- Channel Shorts Tab ---
 ||youtube.com/@*/shorts$document
-||youtube.com/@*/shorts/*$document
+||www.youtube.com/@*/shorts$document
+||m.youtube.com/@*/shorts$document
 ||youtube.com/channel/*/shorts$document
-||youtube.com/channel/*/shorts/*$document
 ||youtube.com/c/*/shorts$document
-||youtube.com/c/*/shorts/*$document
 ||youtube.com/user/*/shorts$document
-||youtube.com/user/*/shorts/*$document
-!
-! --- Shorts API & Data Endpoints ---
-||youtube.com/youtubei/v1/reel/reel_item_watch
-||youtube.com/youtubei/v1/reel/reel_watch_sequence
+||youtube.com/*?feature=shorts$document
+||youtube.com/*&feature=shorts$document
+
+! [3] REEL / SHORTS API
 ||youtube.com/youtubei/v1/reel/*
-||youtube.com/youtubei/v1/browse?*$xhr,contains:reelShelfRenderer
-||youtube.com/youtubei/v1/next?*$xhr,contains:reelShelfRenderer
-||youtube.com/youtubei/v1/player?*$xhr,contains:shortsLockupViewModel
-||youtube.com/youtubei/v1/search?*$xhr,contains:reelItemRenderer
-||youtube.com/youtubei/v1/guide?*$xhr,contains:shorts
-||youtube.com/youtubei/v1/account/account_menu?*$xhr,contains:shorts
-!
-! --- Shorts Static Assets ---
-||youtube.com/s/desktop/*/jsbin/shorts-*.js
-||youtube.com/s/desktop/*/jsbin/shorts*.js
-||googlevideo.com/videoplayback?*$media,contains:shorts
-!
-! --- YouTube TV / Embedded / Kids ---
-||youtube.com/tv/shorts/*$document
-||youtube.com/embedded/shorts/*$document
-||youtubekids.com/shorts/*$document
-||youtubekids.com/watch?*$document,contains:shorts
-!
-! ============================================================
-!  SECTION 2: ELEMENT HIDING (Cosmetic Filters)
-! ============================================================
-!
-! --- Homepage Shorts Shelf ---
-youtube.com##ytd-rich-shelf-renderer[is-shorts]
-youtube.com##ytd-rich-shelf-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-reel-shelf-renderer
-youtube.com##ytd-shelf-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-rich-section-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-item-section-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-browse ytd-rich-grid-row:has(a[href*="/shorts/"])
-youtube.com##ytd-rich-grid-renderer ytd-rich-item-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-rich-grid-media:has(a[href*="/shorts/"])
-youtube.com##ytd-video-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-compact-video-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-grid-video-renderer:has(a[href*="/shorts/"])
-!
-! --- Navigation / Sidebar ---
-youtube.com##ytd-guide-entry-renderer a[href="/shorts"]
-youtube.com##ytd-guide-entry-renderer:has(a[href="/shorts"])
-youtube.com##ytd-mini-guide-entry-renderer a[href="/shorts"]
-youtube.com##ytd-mini-guide-entry-renderer:has(a[href="/shorts"])
-youtube.com##tp-yt-paper-item:has(a[href="/shorts"])
-youtube.com##ytd-guide-section-renderer:has(a[href="/shorts"])
-youtube.com##a[href="/shorts"]
-youtube.com##ytd-app ytd-guide-renderer a[href="/shorts"]
-!
-! --- Search Results ---
-youtube.com##ytd-search ytd-video-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-search ytd-reel-shelf-renderer
-youtube.com##ytd-search ytd-shelf-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-search ytd-rich-shelf-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-search ytd-item-section-renderer:has(ytd-reel-shelf-renderer)
-!
-! --- Channel Page ---
-youtube.com##ytd-channel-tab-renderer:has(a[href*="/shorts"])
-youtube.com##tp-yt-paper-tab:has(a[href*="/shorts"])
-youtube.com##ytd-c4-tabbed-header-renderer a[href*="/shorts"]
-youtube.com##ytd-browse ytd-rich-grid-row:has(a[href*="/shorts/"])
-!
-! --- Watch Page / Player ---
-youtube.com##ytd-player ytd-reel-player-overlay-renderer
-youtube.com##ytd-watch-flexy ytd-reel-shelf-renderer
-youtube.com##ytd-watch-next-secondary-results-renderer ytd-reel-shelf-renderer
-youtube.com##ytd-watch-next-secondary-results-renderer ytd-compact-video-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-watch-next-secondary-results-renderer ytd-shelf-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-watch-metadata ytd-reel-shelf-renderer
-youtube.com##ytd-engagement-panel-section-list-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-watch-flexy #related ytd-reel-shelf-renderer
-!
-! --- Shorts Player / Full Screen ---
-youtube.com##ytd-shorts
-youtube.com##ytd-reel-video-renderer
-youtube.com##ytd-reel-player-overlay-renderer
-youtube.com##ytd-shorts-player-page
-youtube.com##ytd-reel-watch-frame-renderer
-youtube.com##ytd-shorts-view-model
-youtube.com##ytd-shorts-grid-view-model
-!
-! --- Create Button / Upload Shorts ---
-youtube.com##ytd-topbar-menu-button-renderer:has(a[href*="/shorts"])
-youtube.com##ytd-button-renderer:has(a[href*="/shorts/upload"])
-youtube.com##a[href*="/shorts/upload"]
-youtube.com##ytd-create-button-renderer a[href*="/shorts"]
-!
-! --- Notifications / Trending ---
-youtube.com##ytd-notification-renderer:has(a[href*="/shorts/"])
-youtube.com##ytd-browse ytd-rich-grid-row:has(ytd-reel-shelf-renderer)
-youtube.com##ytd-feed-nudge-renderer:has(a[href*="/shorts/"])
-!
-! --- Mobile Web ---
+||youtube.com/youtubei/v1/reel_item_watch*
+
+! [4] HOMEPAGE / BROWSE SHELVES & TILES
+www.youtube.com##ytd-reel-shelf-renderer
+www.youtube.com##ytd-rich-shelf-renderer:has(a[href^="/shorts/"])
+www.youtube.com##ytd-rich-item-renderer:has(a[href^="/shorts/"])
+www.youtube.com##ytd-rich-grid-row:has(a[href^="/shorts/"])
+www.youtube.com##ytd-grid-video-renderer:has(a[href^="/shorts/"])
+www.youtube.com##ytd-video-renderer:has(a[href^="/shorts/"])
+www.youtube.com##ytd-compact-video-renderer:has(a[href^="/shorts/"])
+www.youtube.com##ytd-playlist-panel-video-renderer:has(a[href^="/shorts/"])
+www.youtube.com##ytd-playlist-video-renderer:has(a[href^="/shorts/"])
+www.youtube.com##ytd-thumbnail:has(a[href^="/shorts/"])
+www.youtube.com##a[href^="/shorts/"]
+m.youtube.com##ytm-compact-video-renderer:has(a[href^="/shorts/"])
+m.youtube.com##ytm-item-section-renderer:has(a[href^="/shorts/"])
 m.youtube.com##ytm-reel-shelf-renderer
-m.youtube.com##ytm-rich-shelf-renderer[is-shorts]
-m.youtube.com##ytm-shelf-renderer:has(a[href*="/shorts/"])
-m.youtube.com##ytm-pivot-bar-item-renderer:has(a[href*="/shorts"])
-m.youtube.com##a[href="/shorts"]
-m.youtube.com##ytm-video-with-context-renderer:has(a[href*="/shorts/"])
-m.youtube.com##ytm-compact-video-renderer:has(a[href*="/shorts/"])
-m.youtube.com##ytm-single-column-browse-results-renderer:has(a[href*="/shorts/"])
-!
-! ============================================================
-!  SECTION 3: SCRIPTLET INJECTION (Advanced)
-! ============================================================
-!
-! --- Remove Shorts from JSON Data (uBO Scriptlet) ---
-youtube.com##+js(json-prune, contents.twoColumnBrowseResultsRenderer.tabs.*.tabRenderer.content.richGridRenderer.contents.*.richSectionRenderer.content.richShelfRenderer, , contents.twoColumnBrowseResultsRenderer)
-youtube.com##+js(json-prune, onResponseReceivedEndpoints.*.appendContinuationItemsAction.continuationItems.*.reelShelfRenderer)
-youtube.com##+js(json-prune, contents.twoColumnBrowseResultsRenderer.tabs.*.tabRenderer.content.sectionListRenderer.contents.*.itemSectionRenderer.contents.*.reelShelfRenderer)
-youtube.com##+js(json-prune, frameworkUpdates.entityBatchUpdate.mutations.*.payload.shortsLockupViewModel)
-youtube.com##+js(json-prune, contents.twoColumnWatchNextResults.results.results.contents.*.reelShelfRenderer)
-youtube.com##+js(json-prune, header.c4TabbedHeaderRenderer.tabs.*.tabRenderer, title, Shorts)
-youtube.com##+js(json-prune, onResponseReceivedActions.*.appendContinuationItemsAction.continuationItems.*.richItemRenderer.content.reelItemRenderer)
-youtube.com##+js(json-prune, contents.richGridRenderer.contents.*.richItemRenderer.content.reelItemRenderer)
-youtube.com##+js(json-prune, items.*.reelItemRenderer)
-youtube.com##+js(json-prune, contents.twoColumnBrowseResultsRenderer.tabs.*.tabRenderer.content.richGridRenderer.contents.*.richItemRenderer.content.shortsLockupViewModel)
-!
-! --- Prevent Shorts Navigation (uBO Scriptlet) ---
-youtube.com##+js(trusted-set-attr, ytd-app, disable-shortcuts-navigation, true)
-youtube.com##+js(set-constant, ytInitialData.contents.twoColumnBrowseResultsRenderer, undefined)
-youtube.com##+js(href-sanitizer, a[href*="/shorts/"], ?url)
-youtube.com##+js(remove-attr, href, a[href*="/shorts/"])
-!
-! ============================================================
-!  SECTION 4: GLOBAL / WILDCARD CATCH-ALL
-! ============================================================
-!
-! --- Catch any remaining shorts references ---
-||youtube.com/*shorts*$document,important
-||youtube.com/*reel*$document,important
-||youtube.com/*reelShelf*$xhr,important
-||youtube.com/*shortsLockup*$xhr,important
-||youtube.com/*reelItemRenderer*$xhr,important
-||youtube.com/*reel_watch*$xhr,important
-||youtube.com/*reel_item*$xhr,important
-!
-! --- Third-party embeds ---
-||youtube-nocookie.com/embed/*$document,contains:shorts
-||googlevideo.com/*shorts*$media
-!
-! ============================================================
-!  SECTION 5: PLATFORM-SPECIFIC OVERRIDES
-! ============================================================
-!
-! --- Brave Browser Specific ---
-||youtube.com/shorts/*$document,important,denyallow=none
-||youtube.com/@*/shorts$document,important
-!
-! --- AdGuard Specific ---
-youtube.com#?#ytd-rich-item-renderer:has(a[href*="/shorts/"])
-youtube.com#?#ytd-compact-video-renderer:has(a[href*="/shorts/"])
-youtube.com#?#ytd-video-renderer:has(a[href*="/shorts/"])
-youtube.com#?#ytd-grid-video-renderer:has(a[href*="/shorts/"])
-youtube.com#?#ytd-reel-shelf-renderer
-youtube.com#?#ytd-shelf-renderer:has(a[href*="/shorts/"])
-youtube.com#?#a[href="/shorts"]
-youtube.com#?#ytd-guide-entry-renderer:has(a[href="/shorts"])
-youtube.com#?#tp-yt-paper-tab:has(a[href*="/shorts"])
-youtube.com#?#ytd-channel-tab-renderer:has(a[href*="/shorts"])
-!
-! ============================================================
-!  END OF BLOCKLIST
-! ============================================================
+m.youtube.com##a[href^="/shorts/"]
+
+! [5] WATCH PAGE / PLAYER OVERLAYS
+www.youtube.com##ytd-reel-player-overlay-renderer
+www.youtube.com##ytd-reel-player-header-renderer
+www.youtube.com##ytd-menu-service-item-renderer:has(yt-formatted-string:has-text(Create Short))
+www.youtube.com##ytd-menu-service-item-renderer:has(yt-formatted-string:has-text(Remix))
+www.youtube.com##[is-shorts]
+
+! [6] SCRIPTLETS (uBlock Origin / AdGuard)
+www.youtube.com##+js(json-prune, onResponseReceivedActions[].appendContinuationItemsAction.continuationItems.[].richItemRenderer.content.reelItemRenderer)
+www.youtube.com##+js(json-prune, contents.twoColumnBrowseResultsRenderer.tabs[].tabRenderer.content.richGridRenderer.contents.[].richItemRenderer.content.reelItemRenderer)
+www.youtube.com##+js(href-sanitizer, a[href^="/shorts"], about:blank)
+m.youtube.com##+js(href-sanitizer, a[href^="/shorts"], about:blank)
+
+! [7] EMBEDS / MUSIC / KIDS / TV
+||youtube.com/embed/shorts/*
+||youtube-nocookie.com/embed/shorts/*
+||music.youtube.com/*shorts*$document
+music.youtube.com##ytmusic-tab-renderer:has-text(Shorts)
+||youtubekids.com/*shorts*$document
+||tv.youtube.com/*shorts*$document
