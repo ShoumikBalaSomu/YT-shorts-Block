@@ -1,0 +1,42 @@
+# ============================================================
+# YT-Shorts-Block - Hosts File Entries
+# Version: 2026.07.31.1
+# Author: ShoumikBalaSomu
+# License: MIT
+# ============================================================
+#
+# IMPORTANT: We do NOT block youtube.com entirely.
+# YouTube Shorts are served from the same domain as regular YouTube.
+# Domain-level blocking would break all of YouTube.
+#
+# Instead, use the filter lists (uBlock/Brave) for path-based blocking.
+# The hosts entries below block supplementary Shorts infrastructure.
+#
+# ============================================================
+# SUPPLEMENTARY BLOCKS (safe to add to hosts file)
+# ============================================================
+
+# Shorts-specific CDN endpoints (if separated by Google in future)
+# 0.0.0.0 shorts.youtube.com
+# 0.0.0.0 ytshorts.googlevideo.com
+
+# Shorts analytics/tracking
+0.0.0.0 youtube-shortslens.googleapis.com
+
+# ============================================================
+# INSTRUCTIONS
+# ============================================================
+#
+# Windows: C:\Windows\System32\drivers\etc\hosts
+# Linux:   /etc/hosts
+# macOS:   /etc/hosts
+#
+# After editing, flush DNS:
+#   Windows: ipconfig /flushdns
+#   Linux:   sudo systemd-resolve --flush-caches
+#   macOS:   sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
+#
+# For full protection, use the uBlock Origin filter list:
+# https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/filter-lists/yt-shorts-ublock.txt
+#
+# ============================================================
