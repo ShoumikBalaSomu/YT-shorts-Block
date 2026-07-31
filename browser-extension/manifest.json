@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "YT Shorts Block",
+  "name": "YT-Shorts-Block",
   "version": "2.0.0",
-  "description": "Block every YouTube Shorts element \u2014 search, feed, sidebar, URLs, API calls. Total Shorts elimination.",
+  "description": "Nuclear-grade YouTube Shorts blocker. Blocks shorts in search, feed, URLs, API responses \u2014 everywhere. Zero data collection.",
   "author": "ShoumikBalaSomu",
   "homepage_url": "https://github.com/ShoumikBalaSomu/YT-shorts-Block",
   "icons": {
@@ -11,16 +11,16 @@
     "128": "icons/icon128.png"
   },
   "permissions": [
+    "storage",
     "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess",
-    "storage",
-    "activeTab"
+    "webNavigation",
+    "tabs"
   ],
   "host_permissions": [
     "*://*.youtube.com/*",
     "*://*.youtube-nocookie.com/*",
-    "*://*.googleapis.com/*",
-    "*://*.ytimg.com/*"
+    "*://youtubei.googleapis.com/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -31,11 +31,11 @@
         "*://*.youtube.com/*",
         "*://*.youtube-nocookie.com/*"
       ],
-      "js": [
-        "content.js"
-      ],
       "css": [
         "content.css"
+      ],
+      "js": [
+        "content.js"
       ],
       "run_at": "document_start",
       "all_frames": true
