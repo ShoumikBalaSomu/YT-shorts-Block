@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "YT-Shorts-Block",
-  "version": "2.0.0",
-  "description": "Nuclear-grade YouTube Shorts blocker. Blocks shorts in search, feed, URLs, API responses \u2014 everywhere. Zero data collection.",
+  "name": "YT Shorts Block - Total YouTube Shorts Eliminator",
+  "version": "3.0.0",
+  "description": "Nuclear-grade YouTube Shorts blocker. Removes shorts from search, homepage, sidebar, channels. Zero data collection.",
   "author": "ShoumikBalaSomu",
   "homepage_url": "https://github.com/ShoumikBalaSomu/YT-shorts-Block",
   "icons": {
@@ -11,16 +11,17 @@
     "128": "icons/icon128.png"
   },
   "permissions": [
-    "storage",
     "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess",
+    "scripting",
     "webNavigation",
+    "storage",
     "tabs"
   ],
   "host_permissions": [
-    "*://*.youtube.com/*",
-    "*://*.youtube-nocookie.com/*",
-    "*://youtubei.googleapis.com/*"
+    "*://www.youtube.com/*",
+    "*://m.youtube.com/*",
+    "*://youtube.com/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -28,8 +29,9 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*.youtube.com/*",
-        "*://*.youtube-nocookie.com/*"
+        "*://www.youtube.com/*",
+        "*://m.youtube.com/*",
+        "*://youtube.com/*"
       ],
       "css": [
         "content.css"
@@ -44,7 +46,7 @@
   "declarative_net_request": {
     "rule_resources": [
       {
-        "id": "yt_shorts_rules",
+        "id": "shorts_block_rules",
         "enabled": true,
         "path": "rules.json"
       }
@@ -57,5 +59,16 @@
       "48": "icons/icon48.png",
       "128": "icons/icon128.png"
     }
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "page-script.js"
+      ],
+      "matches": [
+        "*://www.youtube.com/*",
+        "*://m.youtube.com/*"
+      ]
+    }
+  ]
 }
