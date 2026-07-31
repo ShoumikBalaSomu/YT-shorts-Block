@@ -1,87 +1,31 @@
-! ============================================================
-!  YT-Shorts-Block — Brave Shields Filter List
-!  Version: 3.0.0
-!  Updated: 2026-07-31
-!  Author: ShoumikBalaSomu
-!  License: MIT
-!  Homepage: https://github.com/ShoumikBalaSomu/YT-shorts-Block
-!
-!  INSTALL:
-!   Brave → Settings → Shields → Content Filtering
-!   → Add custom filter list → Paste URL:
-!   https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/filter-lists/yt-shorts-brave.txt
-! ============================================================
+! YT-SHORTS-BLOCK - Brave Shields Filter List v3.0.0
+! Usage: Brave -> Settings -> Shields -> Content Filtering -> Add custom list
+! URL: https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/filter-lists/yt-shorts-brave.txt
 
-! --- Network blocks ---
-||youtube.com/shorts/*$document
-||youtube.com/shorts$document
-||m.youtube.com/shorts/*$document
-||m.youtube.com/shorts$document
-||youtube.com/embed/shorts/*$document
-||youtubei.googleapis.com/youtubei/v1/reel/*$xhr
-||youtubei.googleapis.com/youtubei/v1/shorts/*$xhr
-
-! --- SEARCH RESULTS: Hide shorts with SHORTS badge ---
-www.youtube.com##ytd-video-renderer:has([overlay-style="SHORTS"])
-www.youtube.com##ytd-grid-video-renderer:has([overlay-style="SHORTS"])
-www.youtube.com##ytd-rich-item-renderer:has([overlay-style="SHORTS"])
-www.youtube.com##ytd-compact-video-renderer:has([overlay-style="SHORTS"])
-
-! --- SEARCH RESULTS: Hide by href pattern ---
-www.youtube.com##ytd-video-renderer:has(a[href*="/shorts/"])
-www.youtube.com##ytd-grid-video-renderer:has(a[href*="/shorts/"])
-www.youtube.com##ytd-rich-item-renderer:has(a[href*="/shorts/"])
-www.youtube.com##ytd-compact-video-renderer:has(a[href*="/shorts/"])
-
-! --- SEARCH RESULTS: Hide #shorts titled videos ---
-www.youtube.com##ytd-video-renderer:has(#video-title:has-text(/#Shorts/i))
-www.youtube.com##ytd-grid-video-renderer:has(#video-title:has-text(/#Shorts/i))
-www.youtube.com##ytd-rich-item-renderer:has(#video-title:has-text(/#Shorts/i))
-
-! --- SEARCH RESULTS: Hide shorts shelf ---
-www.youtube.com##ytd-reel-shelf-renderer
-www.youtube.com##ytd-reel-item-renderer
-www.youtube.com##ytd-search-renderer ytd-reel-shelf-renderer
-
-! --- SEARCH: Hide Shorts filter chip ---
-www.youtube.com##yt-chip-cloud-chip-renderer:has-text(Shorts)
-
-! --- HOME FEED: Hide Shorts section ---
+www.youtube.com##ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]:upward(ytd-video-renderer)
+www.youtube.com##ytm-shorts-lockup-view-model-v2:upward(grid-shelf-view-model)
+www.youtube.com##ytm-shorts-lockup-view-model:upward(grid-shelf-view-model)
+www.youtube.com##ytd-video-renderer:has(a[href^="/shorts/"])
+www.youtube.com##ytd-video-renderer:has(a[href^="/shorts"])
+www.youtube.com##ytd-compact-video-renderer:has(a[href^="/shorts/"])
+www.youtube.com##ytd-rich-item-renderer:has(a[href^="/shorts/"])
+www.youtube.com##grid-shelf-view-model:has(h2.yt-shelf-header-layout__title)
 www.youtube.com##ytd-rich-shelf-renderer[is-shorts]
-www.youtube.com##ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts])
-www.youtube.com##ytd-rich-section-renderer:has(ytd-reel-shelf-renderer)
-www.youtube.com##ytd-shelf-renderer:has-text(Shorts)
-
-! --- SIDEBAR: Hide Shorts button ---
-www.youtube.com##ytd-guide-entry-renderer:has-text(Shorts)
-www.youtube.com##ytd-mini-guide-entry-renderer:has-text(Shorts)
-www.youtube.com##a[href="/shorts"]
-
-! --- CHANNEL: Hide Shorts tab ---
-www.youtube.com##tp-yt-paper-tab:has-text(Shorts)
-www.youtube.com##yt-tab-shape:has-text(Shorts)
-
-! --- PLAYER: Hide Shorts elements ---
-www.youtube.com##ytd-reel-player-overlay-renderer
+www.youtube.com##ytd-rich-shelf-renderer[is-shorts]:upward(ytd-rich-section-renderer)
+www.youtube.com##ytd-rich-item-renderer[rendered-from-rich-grid] ytm-shorts-lockup-view-model:upward(ytd-rich-item-renderer[rendered-from-rich-grid])
+www.youtube.com##ytd-reel-shelf-renderer
+www.youtube.com##ytd-guide-entry-renderer:has(a[title="Shorts"])
+www.youtube.com##ytd-mini-guide-entry-renderer:has(a[href^="/shorts"])
+www.youtube.com##yt-tab-shape[tab-title="Shorts"]
+www.youtube.com##yt-chip-cloud-chip-renderer:has-text(/^Shorts$/)
 www.youtube.com##ytd-reel-video-renderer
-www.youtube.com##.ytp-short-button
-
-! --- UP NEXT / RECOMMENDATIONS ---
-www.youtube.com##ytd-compact-reel-item-renderer
-www.youtube.com##ytd-compact-video-renderer:has(a[href^="/shorts"])
-
-! --- DESCRIPTION: Hide shorts remixes ---
-www.youtube.com##ytd-reel-shelf-renderer.ytd-structured-description-content-renderer
-
-! --- MOBILE ---
+www.youtube.com##ytd-shorts
+www.youtube.com##ytd-reel-player-overlay-renderer
+m.youtube.com##ytm-thumbnail-overlay-time-status-renderer[data-style="SHORTS"]:upward(ytm-video-with-context-renderer)
+m.youtube.com##ytm-shorts-lockup-view-model-v2:upward(grid-shelf-view-model)
 m.youtube.com##ytm-reel-shelf-renderer
-m.youtube.com##ytm-reel-item-renderer
 m.youtube.com##ytm-pivot-bar-item-renderer:has(.pivot-shorts)
-m.youtube.com##ytm-video-with-context-renderer:has([data-style="SHORTS"])
-m.youtube.com##ytm-rich-section-renderer:has-text(Shorts)
-m.youtube.com##yt-tab-shape:has-text(Shorts)
-m.youtube.com##a[href="/shorts"]
-
-! ============================================================
-!  END OF YT-SHORTS-BLOCK v3.0 Brave FILTER LIST
-! ============================================================
+m.youtube.com##yt-tab-shape[tab-title="Shorts"]
+m.youtube.com##ytm-chip-cloud-chip-renderer:has([aria-label="Shorts"])
+||youtube.com/shorts/*$document
+||youtube.com/reel/*$document
