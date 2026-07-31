@@ -1,161 +1,192 @@
 /**
- * YT Shorts Block — Content CSS
- * Injected at document_start for zero-flash hiding.
- * Every known Shorts element is hidden here.
+ * ============================================================
+ * YT-Shorts-Block — Nuclear CSS Shield v2.0
+ * ============================================================
+ * Runs at document_start — hides elements BEFORE they paint.
+ * Covers YouTube DOM 2024 → 2026+
+ *
+ * @author  ShoumikBalaSomu
+ * @license MIT
+ * ============================================================
  */
 
-/* ===== SHORTS SHELF / CAROUSEL (Search + Home) ===== */
+/* ===================== HOMEPAGE / FEED ===================== */
 ytd-reel-shelf-renderer,
+ytd-rich-shelf-renderer[is-shorts],
+ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
+ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts]),
 ytd-reel-item-renderer,
-ytd-reel-video-renderer,
-ytd-reel-player-overlay-renderer,
-ytd-reel-player-header-renderer,
-ytd-reel-player-footer-renderer {
+ytd-rich-item-renderer:has(ytd-reel-item-renderer) {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
   min-height: 0 !important;
   max-height: 0 !important;
   overflow: hidden !important;
-  opacity: 0 !important;
   pointer-events: none !important;
   position: absolute !important;
-  z-index: -99999 !important;
+  left: -99999px !important;
   width: 0 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
+  opacity: 0 !important;
 }
 
-/* ===== SHORTS IN SEARCH RESULTS ===== */
-ytd-search-renderer ytd-reel-item-renderer,
+/* ===================== SEARCH RESULTS (CRITICAL) ===================== */
 ytd-search-renderer ytd-reel-shelf-renderer,
+ytd-search-renderer ytd-reel-item-renderer,
+ytd-item-section-renderer ytd-reel-shelf-renderer,
 ytd-item-section-renderer:has(ytd-reel-shelf-renderer),
 ytd-item-section-renderer:has(ytd-reel-item-renderer),
-ytd-rich-section-renderer:has(ytd-reel-shelf-renderer),
-ytd-rich-section-renderer:has(ytd-reel-item-renderer),
-ytd-rich-section-renderer:has(a[href*="/shorts"]) {
+/* Shorts appearing as regular video cards in search with SHORTS badge */
+ytd-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]),
+ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]),
+ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]),
+ytd-compact-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]),
+ytd-lockup-view-model:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]),
+/* Shorts by URL pattern in search */
+ytd-video-renderer:has(a[href^="/shorts"]),
+ytd-rich-item-renderer:has(a[href^="/shorts"]),
+ytd-grid-video-renderer:has(a[href^="/shorts"]),
+ytd-compact-video-renderer:has(a[href^="/shorts"]),
+ytd-lockup-view-model:has(a[href^="/shorts"]) {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
   min-height: 0 !important;
   max-height: 0 !important;
   overflow: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/* ===== SHORTS LINKS IN ANY CONTAINER ===== */
-ytd-rich-item-renderer:has(a[href*="/shorts"]),
-ytd-grid-video-renderer:has(a[href*="/shorts"]),
-ytd-video-renderer:has(a[href*="/shorts"]),
-ytd-compact-video-renderer:has(a[href*="/shorts"]),
-ytd-playlist-video-renderer:has(a[href*="/shorts"]),
-ytd-notification-renderer:has(a[href*="/shorts"]),
-ytd-lockup-view-model:has(a[href*="/shorts"]),
-ytd-structured-description-content-renderer:has(a[href*="/shorts"]) {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  min-height: 0 !important;
-  max-height: 0 !important;
-  overflow: hidden !important;
-  opacity: 0 !important;
-  pointer-events: none !important;
-}
-
-/* ===== SHORTS NAVIGATION BUTTONS / TABS ===== */
-ytd-guide-entry-renderer:has(a[href="/shorts"]),
-ytd-mini-guide-entry-renderer:has(a[href="/shorts"]),
-tp-yt-paper-item:has(a[href="/shorts"]),
-ytd-pivot-bar-item-renderer:has(a[href="/shorts"]),
-ytm-pivot-bar-item-renderer:has(a[href="/shorts"]),
-a[href="/shorts"],
-a[href^="/shorts/"] {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  width: 0 !important;
-  overflow: hidden !important;
-  opacity: 0 !important;
   pointer-events: none !important;
   position: absolute !important;
+  left: -99999px !important;
+  width: 0 !important;
+  opacity: 0 !important;
+}
+
+/* ===================== NAVIGATION / SIDEBAR ===================== */
+ytd-guide-entry-renderer:has(a[href="/shorts"]),
+ytd-mini-guide-entry-renderer:has(a[href="/shorts"]),
+a[href="/shorts"],
+tp-yt-paper-item:has(a[href="/shorts"]),
+ytd-guide-entry-renderer:has(#endpoint[href="/shorts"]) {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* ===================== VIDEO PLAYER ===================== */
+.ytp-short-button,
+button[aria-label="Shorts"],
+ytd-reel-player-overlay-renderer,
+ytd-reel-video-renderer,
+.ytp-shorts-button,
+button[aria-label*="Shorts" i] {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+/* ===================== RECOMMENDATIONS / UP NEXT ===================== */
+ytd-compact-reel-item-renderer,
+ytd-compact-link-renderer:has(#endpoint[href^="/shorts"]),
+ytd-compact-video-renderer:has(a[href^="/shorts"]),
+ytd-watch-next-secondary-results-renderer ytd-reel-shelf-renderer {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ===================== CHANNEL PAGES ===================== */
+ytd-channel-tab-renderer:has-text(Shorts),
+tp-yt-paper-tab:has-text(Shorts),
+ytd-tab-renderer:has-text(Shorts) {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ===================== NOTIFICATIONS ===================== */
+ytd-notification-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+}
+
+/* ===================== TRENDING / EXPLORE ===================== */
+ytd-explore-renderer ytd-reel-shelf-renderer {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* ===================== MOBILE WEB ===================== */
+ytm-reel-shelf-renderer,
+ytm-reel-item-renderer,
+ytm-pivot-bar-item-renderer:has-text(Shorts),
+ytm-rich-shelf-renderer,
+ytm-compact-reel-item-renderer,
+ytm-video-renderer:has(a[href^="/shorts"]),
+ytm-rich-item-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+}
+
+/* ===================== COMMENTS / COMMUNITY ===================== */
+ytd-comment-thread-renderer:has(a[href^="/shorts"]),
+ytd-backstage-post-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+}
+
+/* ===================== PLAYLISTS ===================== */
+ytd-playlist-video-renderer:has(a[href^="/shorts"]),
+ytd-compact-playlist-renderer:has(a[href^="/shorts"]) {
+  display: none !important;
+}
+
+/* ===================== SHORTS PAGE (if somehow loaded) ===================== */
+ytd-shorts-renderer,
+ytd-reel-watch-renderer,
+reel-watch-sequence-renderer,
+ytd-shorts-full-screen-renderer {
+  display: none !important;
+  visibility: hidden !important;
+  position: fixed !important;
+  left: -99999px !important;
+  top: -99999px !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
   z-index: -99999 !important;
 }
 
-/* ===== SHORTS PLAYER PAGE ===== */
-ytd-short-form-video-renderer,
-ytd-shorts,
-#shorts-player,
-ytd-reel-watch-frame-renderer,
-ytd-reel-player-overlay-renderer {
+/* ===================== GENERIC CATCH-ALL ===================== */
+ytd-rich-item-renderer:has(a[href^="/shorts"]),
+ytd-grid-video-renderer:has(a[href^="/shorts"]),
+ytd-video-renderer:has(a[href^="/shorts"]),
+ytd-lockup-view-model:has(a[href^="/shorts"]) {
   display: none !important;
   visibility: hidden !important;
   height: 0 !important;
   overflow: hidden !important;
-}
-
-/* ===== SHORTS BADGES / ICONS ===== */
-ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"],
-ytd-badge-supported-renderer:has-text("Shorts"),
-.ytd-badge-supported-renderer[aria-label*="Shorts"],
-#badge:has-text("Shorts") {
-  display: none !important;
-}
-
-/* ===== SHORTS IN ENGAGEMENT PANELS ===== */
-ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-shorts"],
-ytd-engagement-panel-section-list-renderer:has(a[href*="/shorts"]) {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  overflow: hidden !important;
-}
-
-/* ===== SHORTS IN CHANNEL PAGES ===== */
-tp-yt-paper-tab:has-text("Shorts"),
-ytd-channel-tab-renderer:has(a[href*="/shorts"]),
-ytd-c4-tabbed-header-renderer a[href*="/shorts"] {
-  display: none !important;
-}
-
-/* ===== SHORTS FILTER CHIP IN SEARCH ===== */
-yt-chip-cloud-chip-renderer:has-text("Shorts"),
-ytd-search-filter-renderer:has-text("Shorts") {
-  display: none !important;
-}
-
-/* ===== MOBILE WEB (m.youtube.com) ===== */
-ytm-reel-shelf-renderer,
-ytm-reel-item-renderer,
-ytm-short-form-video-renderer,
-ytm-pivot-bar-item-renderer:has(a[href="/shorts"]) {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  overflow: hidden !important;
-}
-
-/* ===== NEWER 2024-2026 UI COMPONENTS ===== */
-ytd-lockup-view-model[overlay-style="SHORTS"],
-ytd-rich-grid-renderer ytd-lockup-view-model:has(a[href*="/shorts"]),
-ytd-watch-next-secondary-results-renderer:has(a[href*="/shorts"]) {
-  display: none !important;
-  visibility: hidden !important;
-  height: 0 !important;
-  overflow: hidden !important;
-}
-
-/* ===== CATCH-ALL: ANY ELEMENT WITH SHORTS HREF ===== */
-[href*="/shorts/"] {
-  display: none !important;
-  visibility: hidden !important;
   pointer-events: none !important;
 }
 
-/* ===== PREVENT LAYOUT SHIFT ===== */
-ytd-rich-grid-renderer,
-ytd-section-list-renderer,
-ytd-item-section-renderer {
-  transition: none !important;
+/* ===================== SHORTS THUMBNAIL OVERLAY BADGE ===================== */
+ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"] {
+  display: none !important;
+}
+
+/* ===================== SHORTS ENTRY POINT / FAB ===================== */
+ytd-shorts-entry-point-renderer,
+ytd-shorts-entry-point,
+#shorts-entry-point,
+.shorts-entry-point {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
