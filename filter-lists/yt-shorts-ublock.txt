@@ -1,154 +1,251 @@
 ! ============================================================
-! YT-Shorts-Block — uBlock Origin Filter List v2.0
-! ============================================================
-! Version:      2026.07.31.2
-! Last Updated: 2026-07-31
-! Author:       ShoumikBalaSomu
-! License:      MIT
-! Homepage:     https://github.com/ShoumikBalaSomu/YT-shorts-Block
-! Description:  Nuclear-grade YouTube Shorts blocker
-! ============================================================
+!  YT-Shorts-Block — uBlock Origin / Brave Filter List
+!  Version: 3.0.0 (NUCLEAR SEARCH FIX)
+!  Updated: 2026-07-31
+!  Author: ShoumikBalaSomu
+!  License: MIT
+!  Homepage: https://github.com/ShoumikBalaSomu/YT-shorts-Block
 !
-! >>>>>>>>>>>> NETWORK-LEVEL BLOCKS <<<<<<<<<<
+!  Based on research from:
+!   - github.com/gijsdev/ublock-hide-yt-shorts
+!   - github.com/BitProcessor/yt-shorts-block
+!   - Community-reported working selectors (2025-2026)
 !
-! --- Block ALL Shorts page URLs ---
+!  INSTALL:
+!   uBlock Origin → Dashboard → Filter Lists → Import
+!   Paste: https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/filter-lists/yt-shorts-ublock.txt
+! ============================================================
+
+! ============================================================
+!  SECTION 1: NETWORK-LEVEL BLOCKS
+! ============================================================
+
+! --- Block direct Shorts page navigation ---
 ||youtube.com/shorts/*$document
 ||youtube.com/shorts$document
-||m.youtube.com/shorts/*$document
-||m.youtube.com/shorts$document
 ||www.youtube.com/shorts/*$document
 ||www.youtube.com/shorts$document
+||m.youtube.com/shorts/*$document
+||m.youtube.com/shorts$document
 ||youtube-nocookie.com/shorts/*$document
-||youtube.com/reel/*$document
-!
-! --- Block Shorts embed URLs ---
-||youtube.com/embed/shorts/*$document,subdocument
-||youtube.com/shorts/embed/*$document,subdocument
-!
-! --- Block Shorts API endpoints ---
+
+! --- Block Shorts embeds ---
+||youtube.com/embed/shorts/*$document
+||youtube.com/shorts/embed/*$document
+
+! --- Block Shorts API endpoints (XHR/Fetch) ---
 ||youtubei.googleapis.com/youtubei/v1/reel/*$xhr
 ||youtubei.googleapis.com/youtubei/v1/shorts/*$xhr
 ||youtubei.googleapis.com/youtubei/v1/browse*$xhr,contains=reelWatchEndpoint
 ||youtubei.googleapis.com/youtubei/v1/next*$xhr,contains=reelWatchEndpoint
 ||youtubei.googleapis.com/youtubei/v1/player*$xhr,contains=shortsLockupViewModel
-||youtubei.googleapis.com/youtubei/v1/search*$xhr,contains=reelWatchEndpoint
-||youtubei.googleapis.com/youtubei/v1/search*$xhr,contains=reelItemEndpoint
 ||youtubei.googleapis.com/youtubei/v1/search*$xhr,contains=shortsLockupViewModel
-||youtubei.googleapis.com/youtubei/v1/browse*$xhr,contains=shortsLockupViewModel
-!
-! --- Block Shorts tracking ---
-||youtube.com/api/stats/watchtime?$xhr,contains=shorts
-!
+||youtubei.googleapis.com/youtubei/v1/search*$xhr,contains=reelItemRenderer
+
 ! --- Block Shorts scripts ---
 ||youtube.com/s/desktop/*/jsbin/desktop-shorts*$script
 ||youtube.com/s/desktop/*/jsbin/shorts*$script
-!
-! >>>>>>>>>>>> COSMETIC FILTERS <<<<<<<<<<
-!
-! --- Homepage Shorts Shelf ---
-youtube.com##ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts])
-youtube.com##ytd-rich-shelf-renderer[is-shorts]
-youtube.com##ytd-rich-section-renderer:has(#contents ytd-reel-item-renderer)
-youtube.com##ytd-reel-shelf-renderer
-youtube.com##ytd-rich-shelf-renderer
-youtube.com##ytd-shelf-renderer:has(#title > #text:has-text(/Shorts/i))
-youtube.com##ytd-rich-section-renderer:has(ytd-reel-shelf-renderer)
-youtube.com##ytd-reel-item-renderer
-youtube.com##ytd-rich-item-renderer:has(ytd-reel-item-renderer)
-!
-! --- Navigation / Sidebar ---
-youtube.com##ytd-guide-entry-renderer:has(a[href="/shorts"])
-youtube.com##ytd-mini-guide-entry-renderer:has(a[href="/shorts"])
-youtube.com##a[href="/shorts"]
-youtube.com##ytd-guide-entry-renderer:has(#endpoint[href="/shorts"])
-youtube.com##tp-yt-paper-item:has(a[href="/shorts"])
-youtube.com##ytd-guide-entry-renderer:has-text(Shorts)
-youtube.com##ytd-mini-guide-entry-renderer:has-text(Shorts)
-!
-! --- SEARCH RESULTS (CRITICAL) ---
-youtube.com##ytd-search-renderer ytd-reel-shelf-renderer
-youtube.com##ytd-search-renderer ytd-reel-item-renderer
-youtube.com##ytd-item-section-renderer:has(ytd-reel-shelf-renderer)
-youtube.com##ytd-item-section-renderer:has(ytd-reel-item-renderer)
-youtube.com##ytd-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
-youtube.com##ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
-youtube.com##ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
-youtube.com##ytd-compact-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
-youtube.com##ytd-lockup-view-model:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
-youtube.com##ytd-video-renderer:has(a[href^="/shorts"])
-youtube.com##ytd-rich-item-renderer:has(a[href^="/shorts"])
-youtube.com##ytd-grid-video-renderer:has(a[href^="/shorts"])
-youtube.com##ytd-compact-video-renderer:has(a[href^="/shorts"])
-youtube.com##ytd-lockup-view-model:has(a[href^="/shorts"])
-!
-! --- Subscriptions Feed ---
-youtube.com##ytd-section-list-renderer ytd-reel-shelf-renderer
-youtube.com##ytd-browse-renderer ytd-reel-shelf-renderer
-!
-! --- Channel Pages ---
-youtube.com##ytd-channel-tab-renderer:has-text(Shorts)
-youtube.com##tp-yt-paper-tab:has-text(Shorts)
-youtube.com##ytd-tab-renderer:has-text(Shorts)
-!
-! --- Video Player ---
-youtube.com##ytd-player button:has-text(Shorts)
-youtube.com##.ytp-short-button
-youtube.com##.ytp-shorts-button
-youtube.com##button[aria-label="Shorts"]
-youtube.com##button[aria-label*="Shorts" i]
-youtube.com##ytd-reel-player-overlay-renderer
-youtube.com##ytd-reel-video-renderer
-!
-! --- Recommendations / Up Next ---
-youtube.com##ytd-compact-reel-item-renderer
-youtube.com##ytd-compact-link-renderer:has(#endpoint[href^="/shorts"])
-youtube.com##ytd-compact-video-renderer:has(a[href^="/shorts"])
-youtube.com##ytd-watch-next-secondary-results-renderer ytd-reel-shelf-renderer
-!
-! --- Notifications ---
-youtube.com##ytd-notification-renderer:has(a[href^="/shorts"])
-!
-! --- Trending / Explore ---
-youtube.com##ytd-explore-renderer ytd-reel-shelf-renderer
-!
-! --- Mobile Web ---
-m.youtube.com##ytm-reel-shelf-renderer
+
+! ============================================================
+!  SECTION 2: SEARCH RESULTS — THE CRITICAL FIX
+!  These selectors target shorts appearing as regular video
+!  cards in search results with a "SHORTS" badge overlay.
+! ============================================================
+
+! --- PRIMARY: Hide video cards with SHORTS overlay badge ---
+! This is THE key selector. YouTube renders shorts in search
+! as ytd-video-renderer with an overlay-style="SHORTS" badge.
+www.youtube.com##ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]:upward(ytd-video-renderer)
+
+! --- ALTERNATIVE: Direct :has() matching for search results ---
+www.youtube.com##ytd-video-renderer:has([overlay-style="SHORTS"])
+www.youtube.com##ytd-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
+
+! --- Grid layout search results ---
+www.youtube.com##ytd-grid-video-renderer:has([overlay-style="SHORTS"])
+www.youtube.com##ytd-grid-video-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
+
+! --- Rich item renderer (new YouTube layout) ---
+www.youtube.com##ytd-rich-item-renderer:has([overlay-style="SHORTS"])
+www.youtube.com##ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
+
+! --- New lockup view model (2025-2026 YouTube redesign) ---
+www.youtube.com##ytm-shorts-lockup-view-model-v2:upward(grid-shelf-view-model)
+www.youtube.com##ytd-rich-item-renderer[rendered-from-rich-grid] ytm-shorts-lockup-view-model:upward(ytd-rich-item-renderer[rendered-from-rich-grid])
+
+! --- Hide videos with #shorts / #short in title ---
+www.youtube.com##ytd-video-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
+www.youtube.com##ytd-grid-video-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
+www.youtube.com##ytd-rich-item-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
+www.youtube.com##ytd-compact-video-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
+
+! --- Hide shorts by href pattern (catch-all) ---
+www.youtube.com##ytd-video-renderer:has(a[href*="/shorts/"])
+www.youtube.com##ytd-grid-video-renderer:has(a[href*="/shorts/"])
+www.youtube.com##ytd-rich-item-renderer:has(a[href*="/shorts/"])
+www.youtube.com##ytd-compact-video-renderer:has(a[href*="/shorts/"])
+
+! --- Hide the Shorts shelf/section in search results ---
+www.youtube.com##ytd-search-renderer ytd-reel-shelf-renderer
+www.youtube.com##ytd-item-section-renderer:has(ytd-reel-shelf-renderer)
+www.youtube.com##ytd-reel-shelf-renderer
+www.youtube.com##ytd-reel-item-renderer
+
+! --- Hide Shorts filter chip on search page ---
+www.youtube.com##yt-chip-cloud-chip-renderer:has(.ytChipShapeInactive:has-text(/^Shorts$/i))
+www.youtube.com##yt-chip-cloud-chip-renderer:has(yt-formatted-string:has-text(/^Shorts$/i))
+
+! ============================================================
+!  SECTION 3: HOME FEED
+! ============================================================
+
+! --- Remove Shorts shelf from home feed (except history) ---
+www.youtube.com##:matches-path(/^(?!/feed/history).*$/)ytd-reel-shelf-renderer
+www.youtube.com##ytd-rich-shelf-renderer[is-shorts]
+www.youtube.com##ytd-rich-shelf-renderer[is-shorts]:upward(ytd-rich-section-renderer)
+www.youtube.com##ytd-rich-section-renderer:has(ytd-rich-shelf-renderer[is-shorts])
+www.youtube.com##ytd-rich-section-renderer:has(#title:has-text(/(^| )Shorts( |$)/i))
+www.youtube.com##ytd-rich-section-renderer:has(#contents ytd-reel-item-renderer)
+www.youtube.com##ytd-rich-section-renderer:has(ytd-reel-shelf-renderer)
+www.youtube.com##ytd-shelf-renderer:has(#title > #text:has-text(/Shorts/i))
+
+! --- Fix grid layout gaps after removal ---
+www.youtube.com##ytd-rich-grid-row,#contents.ytd-rich-grid-row:style(display: contents !important)
+
+! ============================================================
+!  SECTION 4: SIDEBAR / NAVIGATION
+! ============================================================
+
+! --- Hide Shorts button in sidebar ---
+www.youtube.com##ytd-guide-entry-renderer:has(.ytd-guide-entry-renderer[title="Shorts"])
+www.youtube.com##ytd-guide-entry-renderer:has(a[href="/shorts"])
+www.youtube.com##ytd-guide-entry-renderer:has(#endpoint[href="/shorts"])
+www.youtube.com##ytd-guide-entry-renderer:has-text(Shorts)
+
+! --- Tablet / mini sidebar ---
+www.youtube.com##ytd-mini-guide-entry-renderer:has(.ytd-mini-guide-entry-renderer[title="Shorts"])
+www.youtube.com##ytd-mini-guide-entry-renderer:has(a[href="/shorts"])
+www.youtube.com##ytd-mini-guide-entry-renderer:has-text(Shorts)
+
+! --- Generic shorts links ---
+www.youtube.com##a[href="/shorts"]
+www.youtube.com##tp-yt-paper-item:has(a[href="/shorts"])
+
+! ============================================================
+!  SECTION 5: CHANNEL PAGES
+! ============================================================
+
+! --- Hide Shorts tab (old style) ---
+www.youtube.com##tp-yt-paper-tab:has-text(Shorts)
+www.youtube.com##tp-yt-paper-tab:has(.tp-yt-paper-tab:has-text(Shorts))
+
+! --- Hide Shorts tab (new style 2023+) ---
+www.youtube.com##yt-tab-shape[tab-title="Shorts"]
+www.youtube.com##yt-tab-shape:has-text(/^Shorts$/)
+
+! ============================================================
+!  SECTION 6: VIDEO PLAYER / WATCH PAGE
+! ============================================================
+
+! --- Hide Shorts button in player ---
+www.youtube.com##ytd-player button:has-text(Shorts)
+www.youtube.com##.ytp-short-button
+www.youtube.com##button[aria-label="Shorts"]
+
+! --- Hide Shorts player overlay ---
+www.youtube.com##ytd-reel-player-overlay-renderer
+www.youtube.com##ytd-reel-video-renderer
+
+! --- Hide "Shorts remixing this video" in descriptions ---
+www.youtube.com##ytd-reel-shelf-renderer.ytd-structured-description-content-renderer:has-text(/^Shorts remixing this video$/i)
+
+! ============================================================
+!  SECTION 7: UP NEXT / RECOMMENDATIONS / SIDEBAR
+! ============================================================
+
+www.youtube.com##ytd-compact-reel-item-renderer
+www.youtube.com##ytd-compact-link-renderer:has(#endpoint[href^="/shorts"])
+www.youtube.com##ytd-compact-video-renderer:has(a[href^="/shorts"])
+www.youtube.com##ytd-watch-next-secondary-results-renderer ytd-reel-shelf-renderer
+
+! ============================================================
+!  SECTION 8: NOTIFICATIONS / COMMENTS / PLAYLISTS
+! ============================================================
+
+www.youtube.com##ytd-notification-renderer:has(a[href^="/shorts"])
+www.youtube.com##ytd-comment-thread-renderer:has(a[href^="/shorts"])
+www.youtube.com##ytd-backstage-post-renderer:has(a[href^="/shorts"])
+www.youtube.com##ytd-playlist-video-renderer:has(a[href^="/shorts"])
+www.youtube.com##ytd-compact-playlist-renderer:has(a[href^="/shorts"])
+
+! ============================================================
+!  SECTION 9: SUBSCRIPTIONS FEED
+! ============================================================
+
+www.youtube.com##ytd-section-list-renderer ytd-reel-shelf-renderer
+www.youtube.com##ytd-browse-renderer ytd-reel-shelf-renderer
+www.youtube.com##ytd-item-section-renderer.ytd-section-list-renderer[page-subtype="subscriptions"]:has(ytd-video-renderer:has([overlay-style="SHORTS"]))
+
+! ============================================================
+!  SECTION 10: MOBILE WEB (m.youtube.com)
+! ============================================================
+
+! --- Hide shorts indicator on mobile ---
+m.youtube.com##ytm-thumbnail-overlay-time-status-renderer[data-style="SHORTS"]:upward(ytm-video-with-context-renderer)
+
+! --- Hide shorts shelf (except history) ---
+m.youtube.com##:matches-path(/^(?!/feed/history).*$/)ytm-reel-shelf-renderer
+m.youtube.com##:matches-path(/^(?!/feed/history).*$/)ytm-shorts-lockup-view-model:upward(ytm-rich-section-renderer)
+
+! --- Hide shorts sections on mobile search ---
+m.youtube.com##ytm-shorts-lockup-view-model:upward(grid-shelf-view-model)
+m.youtube.com##ytm-shorts-lockup-view-model-v2:upward(grid-shelf-view-model)
+
+! --- Hide shorts in mobile home feed ---
+m.youtube.com##ytm-rich-section-renderer:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/(^| )Shorts( |$)/i))
+m.youtube.com##ytm-reel-shelf-renderer.item:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/(^| )Shorts( |$)/i))
+
+! --- Hide shorts bottom nav button ---
+m.youtube.com##ytm-pivot-bar-item-renderer:has(.pivot-shorts)
+
+! --- Hide shorts tab on mobile channel pages ---
+m.youtube.com##.single-column-browse-results-tabs>a:has-text(Shorts)
+m.youtube.com##yt-tab-shape[tab-title="Shorts"]
+m.youtube.com##yt-tab-shape:has-text(/^Shorts$/)
+
+! --- Hide shorts remixes on mobile ---
+m.youtube.com##ytm-reel-shelf-renderer:has(.reel-shelf-title-wrapper .yt-core-attributed-string:has-text(/^Shorts remixing this video$/i))
+
+! --- Hide shorts filter chip on mobile ---
+m.youtube.com##ytm-chip-cloud-chip-renderer:has(.yt-core-attributed-string:has-text(/^Shorts$/i))
+www.youtube.com##ytm-chip-cloud-chip-renderer:has([aria-label="Shorts"])
+
+! --- Hide shorts videos with #shorts in title (mobile) ---
+m.youtube.com##ytm-rich-item-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
+m.youtube.com##ytm-item-section-renderer:has(#video-title:has-text(/(^| )#Shorts?( |$)/i))
+
+! --- Hide shorts by data-style attribute (mobile) ---
+m.youtube.com##ytm-video-with-context-renderer:has([data-style="SHORTS"])
+
+! --- Generic mobile shorts elements ---
 m.youtube.com##ytm-reel-item-renderer
-m.youtube.com##ytm-pivot-bar-item-renderer:has-text(Shorts)
 m.youtube.com##a[href="/shorts"]
 m.youtube.com##ytm-rich-shelf-renderer
 m.youtube.com##ytm-compact-reel-item-renderer
-m.youtube.com##ytm-video-renderer:has(a[href^="/shorts"])
-m.youtube.com##ytm-rich-item-renderer:has(a[href^="/shorts"])
-!
-! --- Comments / Community ---
-youtube.com##ytd-comment-thread-renderer:has(a[href^="/shorts"])
-youtube.com##ytd-backstage-post-renderer:has(a[href^="/shorts"])
-!
-! --- Playlists ---
-youtube.com##ytd-playlist-video-renderer:has(a[href^="/shorts"])
-youtube.com##ytd-compact-playlist-renderer:has(a[href^="/shorts"])
-!
-! --- Shorts Page (if loaded) ---
-youtube.com##ytd-shorts-renderer
-youtube.com##ytd-reel-watch-renderer
-youtube.com##reel-watch-sequence-renderer
-youtube.com##ytd-shorts-full-screen-renderer
-!
-! --- Shorts Entry Point / FAB ---
-youtube.com##ytd-shorts-entry-point-renderer
-youtube.com##ytd-shorts-entry-point
-youtube.com###shorts-entry-point
-!
-! --- Generic Catch-All ---
-youtube.com##ytd-rich-item-renderer:has(a[href^="/shorts"])
-youtube.com##ytd-grid-video-renderer:has(a[href^="/shorts"])
-youtube.com##ytd-video-renderer:has(a[href^="/shorts"])
-youtube.com##ytd-lockup-view-model:has(a[href^="/shorts"])
-!
-! --- Shorts Thumbnail Badge ---
-youtube.com##ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]
-!
+
 ! ============================================================
-! END OF YT-SHORTS-BLOCK uBlock Origin FILTER LIST v2.0
+!  SECTION 11: NUCLEAR CATCH-ALL (last resort)
+! ============================================================
+
+! --- Any element linking to /shorts/ ---
+www.youtube.com##[href*="/shorts/"]:upward(ytd-video-renderer)
+www.youtube.com##[href*="/shorts/"]:upward(ytd-rich-item-renderer)
+www.youtube.com##[href*="/shorts/"]:upward(ytd-grid-video-renderer)
+www.youtube.com##[href*="/shorts/"]:upward(ytd-compact-video-renderer)
+
+! ============================================================
+!  END OF YT-SHORTS-BLOCK v3.0 uBlock Origin FILTER LIST
+!  Total rules: 100+
+!  If shorts still appear, report at:
+!  https://github.com/ShoumikBalaSomu/YT-shorts-Block/issues
 ! ============================================================
