@@ -1,93 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>YT-Shorts-Block</title>
-  <link rel="stylesheet" href="popup.css">
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>YT Shorts Block</title><link rel="stylesheet" href="popup.css"></head>
 <body>
-  <div class="container">
-    <!-- Header -->
-    <div class="header">
-      <div class="logo">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-          <rect width="24" height="24" rx="6" fill="#FF0000"/>
-          <path d="M10 8L16 12L10 16V8Z" fill="white"/>
-          <line x1="4" y1="4" x2="20" y2="20" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-        </svg>
-      </div>
-      <div class="title-group">
-        <h1>YT-Shorts-Block</h1>
-        <p class="subtitle">Reclaim Your Focus</p>
-      </div>
-    </div>
-
-    <!-- Status Card -->
-    <div class="status-card" id="statusCard">
-      <div class="status-indicator" id="statusIndicator">
-        <span class="status-dot"></span>
-        <span class="status-text" id="statusText">Active</span>
-      </div>
-      <div class="toggle-wrapper">
-        <label class="toggle">
-          <input type="checkbox" id="mainToggle" checked>
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-    </div>
-
-    <!-- Stats -->
-    <div class="stats-grid">
-      <div class="stat-card">
-        <span class="stat-number" id="blockCount">0</span>
-        <span class="stat-label">Shorts Blocked</span>
-      </div>
-      <div class="stat-card">
-        <span class="stat-number" id="timeSaved">0m</span>
-        <span class="stat-label">Time Saved</span>
-      </div>
-    </div>
-
-    <!-- Protection Layers -->
-    <div class="layers">
-      <h2>Protection Layers</h2>
-      <div class="layer-list">
-        <div class="layer-item">
-          <span class="layer-icon">&#127760;</span>
-          <span class="layer-name">URL Blocking</span>
-          <span class="layer-status active">&#10003;</span>
-        </div>
-        <div class="layer-item">
-          <span class="layer-icon">&#127912;</span>
-          <span class="layer-name">DOM Hiding</span>
-          <span class="layer-status active">&#10003;</span>
-        </div>
-        <div class="layer-item">
-          <span class="layer-icon">&#128268;</span>
-          <span class="layer-name">API Blocking</span>
-          <span class="layer-status active">&#10003;</span>
-        </div>
-        <div class="layer-item">
-          <span class="layer-icon">&#128737;</span>
-          <span class="layer-name">CSS Shield</span>
-          <span class="layer-status active">&#10003;</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Actions -->
-    <div class="actions">
-      <button class="btn btn-primary" id="resetBtn">Reset Counter</button>
-      <a class="btn btn-secondary" href="https://github.com/ShoumikBalaSomu/YT-shorts-Block/issues/new?template=bug_report.md" target="_blank">Report Issue</a>
-    </div>
-
-    <!-- Footer -->
-    <div class="footer">
-      <p>v1.0.0 &bull; <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block" target="_blank">GitHub</a> &bull; MIT License</p>
-    </div>
-  </div>
-
-  <script src="popup.js"></script>
-</body>
-</html>
+<div class="container">
+  <div class="header"><div class="logo">&#128737;</div><div class="tg"><h1>YT Shorts Block</h1><span class="ver">v3.0.0</span></div></div>
+  <div class="sc" id="sc"><div class="si active" id="sd"></div><div class="st"><span class="sl" id="slbl">Protection Active</span><span class="ss">All 6 layers running</span></div><button class="tb" id="tbtn"><span class="tk"></span></button></div>
+  <div class="sg"><div class="stc"><span class="sn" id="sr">0</span><span class="slb">Removed</span></div><div class="stc"><span class="sn" id="srd">0</span><span class="slb">Redirects</span></div><div class="stc"><span class="sn" id="stime">0m</span><span class="slb">Saved</span></div></div>
+  <div class="ls"><h2>Layers</h2><div class="ll">
+    <div class="li"><span>&#128279;</span><span class="ln">URL Redirect</span><span class="lst">&#9679;</span></div>
+    <div class="li"><span>&#129529;</span><span class="ln">DOM Removal</span><span class="lst">&#9679;</span></div>
+    <div class="li"><span>&#127912;</span><span class="ln">CSS Shield</span><span class="lst">&#9679;</span></div>
+    <div class="li"><span>&#128433;</span><span class="ln">Click Intercept</span><span class="lst">&#9679;</span></div>
+    <div class="li"><span>&#128065;</span><span class="ln">Mutation Watch</span><span class="lst">&#9679;</span></div>
+    <div class="li"><span>&#127760;</span><span class="ln">API Block</span><span class="lst">&#9679;</span></div>
+  </div></div>
+  <div class="acts"><button class="ab" id="fbtn">&#128172; Feedback</button><button class="ab" id="gbtn">&#11088; GitHub</button></div>
+  <div class="ft">Zero data collection | 100% open source</div>
+</div>
+<script src="popup.js"></script>
+</body></html>
