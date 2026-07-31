@@ -1,83 +1,71 @@
-! Title: Ultimate YouTube Shorts Blocker (Advanced Anti-Bypass)
-! Description: Completely blocks YouTube Shorts, including direct URL bypasses, search results, and API-based recommendations.
-! Version: 2.0.1
+! Title: Ultimate YouTube Shorts Blocker
+! Description: The most advanced filter list to completely block YouTube Shorts. Prevents bypasses, hides all UI elements, blocks API calls, and removes Shorts from search results.
+! Version: 3.0.0
 ! Homepage: https://github.com/ShoumikBalaSomu/YT-shorts-Block
 ! License: https://github.com/ShoumikBalaSomu/YT-shorts-Block/blob/main/LICENSE
 
 ! ==========================================================
-! 1. STRICT URL & API BLOCKING (Prevents Direct Bypasses)
+! 1. URL & NETWORK BLOCKING (Anti-Bypass)
 ! ==========================================================
-! Block direct navigation to Shorts URLs at the network level
-||youtube.com/shorts/$all
-||www.youtube.com/shorts/$all
-||m.youtube.com/shorts/$all
+! Block direct navigation to Shorts URLs (Desktop & Mobile)
+||youtube.com/shorts/*$document,important
+||m.youtube.com/shorts/*$document,important
+||www.youtube.com/shorts/*$document,important
 
-! Block Shorts-specific API endpoints to stop background loading & recommendations
-||youtube.com/youtubei/v1/reel_item_endpoint$xhr
-||youtube.com/youtubei/v1/shorts/*$xhr
-||youtube.com/youtubei/v1/reel_watch_sequence$xhr
-
-! ==========================================================
-! 2. PRUNING SHORTS FROM API RESPONSES (Prevents them in feeds/searches)
-! ==========================================================
-! Remove Shorts shelves and items from YouTube's initial JSON data
-www.youtube.com##+js(json-prune, contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents.*.itemSectionRenderer.contents.*.reelShelfRenderer)
-www.youtube.com##+js(json-prune, contents.twoColumnSearchResultsRenderer.primaryContents.sectionListRenderer.contents.*.itemSectionRenderer.contents.*.reelItemRenderer)
-www.youtube.com##+js(json-prune, contents.twoColumnBrowseResultsRenderer.tabs.*.tabRenderer.content.richGridRenderer.contents.*.richSectionRenderer)
-www.youtube.com##+js(json-prune, contents.twoColumnBrowseResultsRenderer.tabs.*.tabRenderer.content.richGridRenderer.contents.*.richItemRenderer.content.reelItemRenderer)
-
-! Remove Shorts from continuation (infinite scroll) API responses
-www.youtube.com##+js(json-prune-fetch-response, onResponseReceivedActions.*.appendContinuationItemsAction.continuationItems.*.reelItemRenderer)
-www.youtube.com##+js(json-prune-fetch-response, onResponseReceivedActions.*.appendContinuationItemsAction.continuationItems.*.reelShelfRenderer)
+! Block Shorts-specific API endpoints to prevent background loading & recommendations
+||youtube.com/youtubei/v1/reel/*
+||youtube.com/youtubei/v1/next*$shorts*
+||youtube.com/youtubei/v1/player*$shorts*
+||youtube.com/youtubei/v1/guide*$shorts*
 
 ! ==========================================================
-! 3. UI ELEMENT HIDING (DESKTOP)
+! 2. UI ELEMENT HIDING (DESKTOP)
 ! ==========================================================
 ! Hide Shorts tab in left sidebar navigation
-youtube.com##ytd-guide-entry-renderer[title="Shorts"]
-youtube.com##ytd-mini-guide-entry-renderer[title="Shorts"]
-youtube.com##ytd-guide-entry-renderer:has-text(/^Shorts$/i)
+www.youtube.com##ytd-guide-entry-renderer[title="Shorts"]
+www.youtube.com##ytd-mini-guide-entry-renderer[title="Shorts"]
 
-! Hide Shorts shelves on homepage, search, and subscription feeds
-youtube.com##ytd-rich-shelf-renderer[is-shorts]
-youtube.com##ytd-reel-shelf-renderer
-youtube.com##ytd-rich-section-renderer:has(#title:has-text(/Shorts/i))
+! Remove generic shorts shelf except on history page
+www.youtube.com##:matches-path(/^(?!/feed/history).*$/)ytd-reel-shelf-renderer
 
-! Hide Shorts videos in search results and general feeds (Thumbnails & Titles)
-youtube.com##ytd-video-renderer:has([overlay-style="SHORTS"])
-youtube.com##ytd-video-renderer:has(span[aria-label="Shorts"])
-youtube.com##ytd-video-renderer:has-text(/#shorts/i)
-youtube.com##ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
-youtube.com##ytd-rich-item-renderer:has-text(/#shorts/i)
-youtube.com##ytd-grid-video-renderer:has([overlay-style="SHORTS"])
-youtube.com##ytd-grid-video-renderer:has(span[aria-label="Shorts"])
-youtube.com##ytd-compact-video-renderer[is-short]
+! Remove rich shelf shorts section (Homepage & Subscriptions)
+www.youtube.com##ytd-rich-shelf-renderer[is-shorts],ytd-rich-shelf-renderer[is-shorts]:upward(ytd-rich-section-renderer)
+www.youtube.com##ytd-rich-item-renderer[rendered-from-rich-grid] ytm-shorts-lockup-view-model:upward(ytd-rich-item-renderer[rendered-from-rich-grid])
+
+! Hide shorts filter/category chip on top of homepage and search pages
+www.youtube.com##yt-chip-cloud-chip-renderer:has(.ytChipShapeInactive:has-text(/^Shorts$/i))
+
+! Hide shorts sections on search page (Desktop)
+www.youtube.com##ytm-shorts-lockup-view-model-v2:upward(grid-shelf-view-model)
 
 ! Hide Shorts tab on channel pages
-youtube.com##tp-yt-paper-tab:has-text(/^Shorts$/)
-youtube.com##yt-tab-shape:has-text(/^Shorts$/)
+www.youtube.com##yt-tab-shape[tab-title="Shorts"]
 
 ! Hide Shorts duration badge on thumbnails
-youtube.com##ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]
-youtube.com##span[aria-label="Shorts"]
+www.youtube.com##ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]
 
 ! ==========================================================
-! 4. UI ELEMENT HIDING (MOBILE)
+! 3. UI ELEMENT HIDING (MOBILE)
 ! ==========================================================
-m.youtube.com##ytm-guide-entry-renderer[title="Shorts"]
-m.youtube.com##ytm-pivot-bar-item-renderer:has(.pivot-shorts)
-m.youtube.com##ytm-reel-shelf-renderer
-m.youtube.com##ytm-video-with-context-renderer:has([data-style="SHORTS"])
-m.youtube.com##ytm-video-with-context-renderer:has-text(/#shorts/i)
-m.youtube.com##ytm-rich-section-renderer:has-text(/Shorts/i)
+! Hide Shorts tab in bottom navigation
+m.youtube.com##ytm-pivot-bar-item-renderer[title="Shorts"]
+
+! Hide shorts sections except on history page (Mobile)
+m.youtube.com##:matches-path(/^(?!/feed/history).*$/)ytm-shorts-lockup-view-model:upward(ytm-rich-section-renderer)
+
+! Hide shorts sections on search page (Mobile)
+m.youtube.com##ytm-shorts-lockup-view-model:upward(grid-shelf-view-model)
+
+! Hide Shorts duration badge on thumbnails (Mobile)
+m.youtube.com##ytm-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"]
 
 ! ==========================================================
-! 5. ANTI-BYPASS MEASURES
+! 4. ANTI-BYPASS SCRIPTLETS (uBlock Origin / Brave)
 ! ==========================================================
-! Force block if URL somehow changes to /shorts/ via SPA navigation
-youtube.com##+js(aost, history.pushState, /shorts/)
-youtube.com##+js(aost, history.replaceState, /shorts/)
+! Disable YouTube's internal experiment flags that force Shorts player
+www.youtube.com##+js(set, yt.config_.EXPERIMENT_FLAGS.web_shorts_player_enabled, false)
+www.youtube.com##+js(set, ytInitialPlayerResponse.playabilityStatus.status, "ERROR")
 
-! Block attempts to load shorts via embedded or alternative URL parameters
+! Prevent bypass via embedded or alternative URL parameters
 ||youtube.com/embed/*?feature=shorts
 ||youtube.com/watch?*feature=shorts$document
