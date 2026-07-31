@@ -1,0 +1,57 @@
+{
+  "manifest_version": 3,
+  "name": "YT-Shorts-Block",
+  "version": "1.0.0",
+  "description": "Block YouTube Shorts completely. Every button, every shelf, every URL. Reclaim your focus.",
+  "author": "ShoumikBalaSomu",
+  "homepage_url": "https://github.com/ShoumikBalaSomu/YT-shorts-Block",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "permissions": [
+    "storage",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess"
+  ],
+  "host_permissions": [
+    "*://www.youtube.com/*",
+    "*://youtube.com/*",
+    "*://m.youtube.com/*",
+    "*://consent.youtube.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://www.youtube.com/*",
+        "*://youtube.com/*",
+        "*://m.youtube.com/*"
+      ],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "shorts_block_rules",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
+}
