@@ -1,12 +1,13 @@
-# 🚫 Ultimate YouTube Shorts Blocker
+# 🚫 Ultimate YouTube Shorts Blocker (v3.0)
 
-A comprehensive, advanced filter list designed to completely block YouTube Shorts across all platforms. This list prevents bypasses, blocks background API calls, and hides all Shorts-related UI elements.
+The most advanced, comprehensive filter list designed to completely block YouTube Shorts across all platforms. This list prevents bypasses, blocks background API calls, hides all Shorts-related UI elements, and removes Shorts from search results.
 
 ## ✨ Features
-- **Blocks Direct URLs**: Prevents access to `youtube.com/shorts/*`.
+- **Blocks Direct URLs**: Prevents access to `youtube.com/shorts/*` at the network level.
+- **Search Result Protection**: Removes Shorts from search results using advanced CSS selectors and API pruning.
 - **Hides UI Elements**: Removes Shorts tabs, shelves, badges, and search results on both Desktop and Mobile.
 - **API Blocking**: Stops YouTube from loading Shorts data in the background, saving bandwidth and preventing algorithmic recommendations.
-- **Anti-Bypass**: Blocks alternative URL parameters and embed tricks.
+- **Anti-Bypass Scriptlets**: Uses uBlock Origin scriptlets (`##+js`) to disable YouTube's internal experiment flags that force Shorts player.
 - **Cross-Platform**: Compatible with uBlock Origin, AdGuard, and Brave Shields.
 
 ## 📦 Installation
