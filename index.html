@@ -19,32 +19,39 @@
 <body>
     <header>
         <h1>🚫 Ultimate YouTube Shorts Blocker</h1>
-        <p>Reclaim your focus. The most advanced blocklist to completely eliminate YouTube Shorts.</p>
+        <p>Reclaim your attention. Block Shorts completely across all platforms.</p>
         <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block" class="btn">View on GitHub</a>
-        <a href="https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/blocklist.txt" class="btn">Copy Filter URL</a>
     </header>
-    
+
     <div class="card">
-        <h2>Why use this?</h2>
-        <p>Standard adblockers only hide the Shorts button. This list blocks the underlying API calls, prevents redirects, and hides all Shorts elements across Desktop and Mobile, ensuring you never accidentally click a Short again.</p>
+        <h2>📦 Installation</h2>
+        <p>Add this custom filter list to your ad-blocker:</p>
+        <code>https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/blocklist.txt</code>
     </div>
 
     <div class="card">
-        <h2>How to Install</h2>
-        <h3>uBlock Origin</h3>
-        <ol>
-            <li>Open uBlock Origin Dashboard (⚙️)</li>
-            <li>Go to the <strong>Filter lists</strong> tab</li>
-            <li>Scroll down to <strong>Custom</strong> and click <strong>Import</strong></li>
-            <li>Paste: <code>https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/blocklist.txt</code></li>
-            <li>Click <strong>Apply changes</strong></li>
-        </ol>
-        <h3>Brave Browser</h3>
-        <ol>
-            <li>Go to <code>brave://settings/shields/filters</code></li>
-            <li>Scroll to <strong>Custom filters</strong> and click <strong>Add custom filter list</strong></li>
-            <li>Name it and paste the URL above</li>
-        </ol>
+        <h2>✨ Features</h2>
+        <ul>
+            <li>Blocks direct navigation to <code>/shorts/</code> URLs.</li>
+            <li>Removes Shorts from search results using advanced CSS selectors.</li>
+            <li>Hides Shorts tabs, shelves, and badges on Desktop and Mobile.</li>
+            <li>Blocks background API calls to prevent Shorts recommendations.</li>
+            <li>Anti-bypass scriptlets to disable YouTube's internal Shorts player flags.</li>
+        </ul>
     </div>
+
+    <div class="card">
+        <h2>🛡️ Compatible With</h2>
+        <ul>
+            <li><strong>uBlock Origin</strong> (Recommended)</li>
+            <li><strong>Brave Shields</strong> (Custom Filter Lists)</li>
+            <li><strong>AdGuard</strong></li>
+        </ul>
+    </div>
+
+    <footer style="text-align: center; margin-top: 40px; color: #666; font-size: 0.9em;">
+        <p>Licensed under the <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block/blob/main/LICENSE">MIT License</a>.</p>
+        <p>&copy; 2026 Shoumik Bala Somu</p>
+    </footer>
 </body>
 </html>
