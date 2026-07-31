@@ -1,6 +1,6 @@
 ! Title: Ultimate YouTube Shorts Blocker (Advanced Anti-Bypass)
 ! Description: Completely blocks YouTube Shorts, including direct URL bypasses, search results, and API-based recommendations.
-! Version: 2.0.0
+! Version: 2.0.1
 ! Homepage: https://github.com/ShoumikBalaSomu/YT-shorts-Block
 ! License: https://github.com/ShoumikBalaSomu/YT-shorts-Block/blob/main/LICENSE
 
@@ -50,7 +50,7 @@ youtube.com##ytd-video-renderer:has-text(/#shorts/i)
 youtube.com##ytd-rich-item-renderer:has(ytd-thumbnail-overlay-time-status-renderer[overlay-style="SHORTS"])
 youtube.com##ytd-rich-item-renderer:has-text(/#shorts/i)
 youtube.com##ytd-grid-video-renderer:has([overlay-style="SHORTS"])
-youtube.com##ytd-grid-video-renderer:has(span[aria-label="ShortS"])
+youtube.com##ytd-grid-video-renderer:has(span[aria-label="Shorts"])
 youtube.com##ytd-compact-video-renderer[is-short]
 
 ! Hide Shorts tab on channel pages
