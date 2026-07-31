@@ -1,314 +1,500 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>YT‑SHORTS‑BLOCK // cut the reel</title>
-<meta name="description" content="The most advanced YouTube Shorts blocklist. Hides the sidebar Shorts button and erases every path to the reel.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#17121d; --ink2:#211a2b; --panel:#241c30; --bone:#f4efe6; --paper:#ece3d2;
-  --paperink:#221a14; --red:#e23a52; --teal:#54c2b4; --mute:#9a8fa6; --line:rgba(244,239,230,.12);
-  --disp:'Bricolage Grotesque',sans-serif; --body:'Instrument Sans',sans-serif; --mono:'JetBrains Mono',monospace;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--ink);color:var(--bone);font-family:var(--body);
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5;
-  background-image:radial-gradient(120% 90% at 80% -10%,#2a1f3a 0%,transparent 55%),radial-gradient(90% 70% at 0% 110%,#1d2a2a 0%,transparent 50%)}
-body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
-  background-image:radial-gradient(rgba(244,239,230,.05) 1px,transparent 1px);background-size:24px 24px;
-  animation:grid 22s linear infinite}
-@keyframes grid{to{background-position:24px 24px}}
-.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
-.scan{position:fixed;left:0;right:0;height:160px;z-index:1;pointer-events:none;mix-blend-mode:screen;
-  background:linear-gradient(transparent,rgba(84,194,180,.06),transparent);animation:scan 7.5s linear infinite}
-@keyframes scan{0%{transform:translateY(-160px)}100%{transform:translateY(100vh)}}
-::selection{background:var(--red);color:#fff}
-.wrap{position:relative;z-index:2;max-width:1180px;margin:0 auto;padding:0 26px}
-a{color:inherit}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YT-Shorts-Block | Reclaim Your Focus</title>
+  <meta name="description" content="The most comprehensive YouTube Shorts blocker. Block Shorts at every layer - URL, DOM, CSS, DNS, API. Free and open source.">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --surface2: #1e1e1e;
+      --border: #2a2a2a;
+      --text: #f1f1f1;
+      --text2: #999;
+      --red: #ff0000;
+      --red2: #ff4444;
+      --green: #4CAF50;
+      --blue: #2196F3;
+      --gradient: linear-gradient(135deg, #ff0000, #cc0000);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+    a { color: var(--red2); text-decoration: none; transition: color 0.2s; }
+    a:hover { color: #ff6666; }
 
-/* top bar */
-.bar{position:relative;z-index:3;display:flex;justify-content:space-between;align-items:center;
-  padding:18px 26px;max-width:1180px;margin:0 auto;font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--mute)}
-.bar b{color:var(--bone);font-weight:700}
-.bar .dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--teal);margin-right:7px;
-  box-shadow:0 0 0 0 rgba(84,194,180,.6);animation:pulse 2.2s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(84,194,180,.5)}70%{box-shadow:0 0 0 9px rgba(84,194,180,0)}100%{box-shadow:0 0 0 0 rgba(84,194,180,0)}}
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 50% 50%, rgba(255,0,0,0.06) 0%, transparent 50%);
+      animation: heroGlow 8s ease-in-out infinite alternate;
+    }
+    @keyframes heroGlow {
+      0% { transform: scale(1) rotate(0deg); }
+      100% { transform: scale(1.1) rotate(5deg); }
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 16px;
+      background: rgba(255,0,0,0.1);
+      border: 1px solid rgba(255,0,0,0.3);
+      border-radius: 20px;
+      font-size: 13px;
+      color: var(--red2);
+      margin-bottom: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 7vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 .highlight {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: var(--text2);
+      max-width: 600px;
+      margin-bottom: 36px;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+    .btn {
+      padding: 14px 32px;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary {
+      background: var(--gradient);
+      color: white;
+      box-shadow: 0 4px 20px rgba(255,0,0,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(255,0,0,0.4);
+      color: white;
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 2px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--red2);
+      color: var(--red2);
+      transform: translateY(-2px);
+    }
 
-/* opener */
-.open{display:grid;grid-template-columns:1.45fr .8fr;gap:46px;align-items:center;padding:46px 0 30px}
-.kick{font-family:var(--mono);font-size:12px;letter-spacing:.22em;color:var(--red);text-transform:uppercase;margin:0 0 18px}
-h1{font-family:var(--disp);font-weight:800;font-size:clamp(54px,9vw,128px);line-height:.86;margin:0;letter-spacing:-.03em}
-h1 .cut{position:relative;color:var(--teal)}
-h1 .cut::after{content:"";position:absolute;left:-4%;right:-4%;top:54%;height:7px;background:var(--red);
-  transform:scaleX(0);transform-origin:left;animation:slash 1s .5s cubic-bezier(.7,0,.2,1) forwards}
-@keyframes slash{to{transform:scaleX(1) rotate(-3deg)}}
-.lede{font-size:18px;color:var(--mute);max-width:46ch;margin:24px 0 0}
-.lede b{color:var(--bone);font-weight:600}
+    /* Sections */
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 80px 20px;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 800;
+      text-align: center;
+      margin-bottom: 16px;
+      letter-spacing: -1px;
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--text2);
+      font-size: 1.05rem;
+      max-width: 600px;
+      margin: 0 auto 48px;
+    }
 
-/* install slip (paper) */
-.slip{margin-top:30px;background:var(--paper);color:var(--paperink);font-family:var(--mono);
-  padding:18px 18px 20px;position:relative;box-shadow:0 22px 50px -22px rgba(0,0,0,.7);transform:rotate(-.6deg)}
-.slip::before{content:"";position:absolute;left:0;right:0;top:-7px;height:7px;
-  background:repeating-linear-gradient(90deg,var(--paper) 0 9px,transparent 9px 16px)}
-.slip .lab{font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.6}
-.slip .url{font-size:13px;word-break:break-all;margin:8px 0 14px;line-height:1.5;color:var(--paperink)}
-.slip .row{display:flex;gap:10px;align-items:center;justify-content:space-between;border-top:1px dashed rgba(34,26,20,.3);padding-top:12px}
-.slip .stamp{font-family:var(--disp);font-weight:800;color:var(--red);font-size:13px;letter-spacing:.04em;transform:rotate(-4deg)}
+    /* Feature Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      padding: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(255,0,0,0.3);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+    }
+    .feature-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .feature-card p {
+      color: var(--text2);
+      font-size: 0.9rem;
+    }
 
-/* buttons */
-.btn{font-family:var(--mono);font-size:12px;letter-spacing:.06em;border:0;cursor:pointer;
-  background:var(--paperink);color:var(--paper);padding:11px 16px;text-transform:uppercase;transition:background .2s,box-shadow .2s}
-.btn:hover{background:var(--red)}
-.btn.ok{background:var(--teal);color:#06231f}
-.btnline{display:inline-flex;align-items:center;gap:10px;background:transparent;border:1px solid var(--line);
-  color:var(--bone);padding:12px 18px;text-decoration:none;font-family:var(--mono);font-size:12px;letter-spacing:.06em;
-  text-transform:uppercase;transition:border-color .2s,color .2s,transform .15s}
-.btnline:hover{border-color:var(--red);color:#fff}
+    /* Steps */
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    .step {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    .step:hover {
+      border-color: rgba(255,0,0,0.3);
+    }
+    .step-num {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gradient);
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 18px;
+    }
+    .step h3 { font-size: 1rem; margin-bottom: 6px; }
+    .step p { color: var(--text2); font-size: 0.9rem; }
+    .step code {
+      display: block;
+      margin-top: 10px;
+      padding: 10px 14px;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: var(--green);
+      word-break: break-all;
+      border: 1px solid var(--border);
+    }
 
-/* reel stack (the thing being killed) */
-.reel{display:flex;flex-direction:column;gap:12px;perspective:700px}
-.rcard{position:relative;aspect-ratio:9/13;border-radius:10px;overflow:hidden;
-  background:linear-gradient(150deg,#3a2740,#241c30 60%,#1a2a2a);border:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;transform-origin:top;transition:transform .55s cubic-bezier(.7,0,.3,1),opacity .55s,filter .55s}
-.rcard .tri{width:0;height:0;border-left:18px solid rgba(244,239,230,.85);border-top:11px solid transparent;border-bottom:11px solid transparent}
-.rcard .tag{position:absolute;top:8px;left:9px;font-family:var(--mono);font-size:9px;letter-spacing:.18em;color:var(--mute)}
-.rcard::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 46%,var(--red) 47%,var(--red) 53%,transparent 54%);
-  opacity:0;transition:opacity .3s .15s}
-.rcard.cut{transform:scaleY(.03) rotate(.5deg);opacity:.18;filter:grayscale(1)}
-.rcard.cut::after{opacity:1}
+    /* Platform Grid */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .platform-card {
+      padding: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    .platform-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(255,0,0,0.3);
+    }
+    .platform-icon { font-size: 36px; margin-bottom: 12px; }
+    .platform-card h3 { font-size: 1rem; margin-bottom: 6px; }
+    .platform-card p { color: var(--text2); font-size: 0.85rem; }
 
-/* marquee */
-.marq{position:relative;z-index:2;border-top:1px solid var(--red);border-bottom:1px solid var(--red);
-  background:rgba(226,58,82,.06);overflow:hidden;white-space:nowrap;padding:13px 0;margin:34px 0}
-.marq .track{display:inline-block;animation:scroll 26s linear infinite;font-family:var(--mono);font-size:13px;letter-spacing:.05em;color:var(--bone)}
-.marq .track span{color:var(--teal);margin:0 14px}
-@keyframes scroll{to{transform:translateX(-50%)}}
+    /* Stats Bar */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 24px;
+      background: var(--surface);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+    .stat-item .num {
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-item .label {
+      color: var(--text2);
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
 
-/* section heads */
-.sec{padding:60px 0}
-.sec h2{font-family:var(--disp);font-weight:800;font-size:clamp(34px,5vw,64px);line-height:.92;margin:0 0 8px;letter-spacing:-.02em}
-.sec .sub{font-family:var(--mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute);margin:0 0 34px}
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid var(--border);
+      color: var(--text2);
+      font-size: 0.85rem;
+    }
+    .footer a { color: var(--red2); }
 
-/* ledger */
-.led{display:flex;flex-direction:column}
-.lrow{display:grid;grid-template-columns:64px 1fr auto;gap:18px;align-items:baseline;
-  padding:22px 0;border-top:1px solid var(--line);position:relative;cursor:default}
-.lrow:nth-child(even){padding-left:34px}
-.lrow:nth-child(3n){padding-left:14px}
-.lrow .ix{font-family:var(--disp);font-weight:800;font-size:30px;color:var(--red)}
-.lrow .nm{font-family:var(--disp);font-weight:700;font-size:22px}
-.lrow .ds{color:var(--mute);font-size:14px;margin-top:3px;position:relative;display:inline-block}
-.lrow .ct{font-family:var(--mono);font-size:13px;color:var(--teal);white-space:nowrap}
-.lrow .ds::after{content:"REDACTED";position:absolute;inset:0;background:var(--red);color:#fff;font-family:var(--mono);
-  font-size:12px;letter-spacing:.1em;display:flex;align-items:center;padding:0 6px;transform:scaleX(0);transform-origin:left;transition:transform .3s}
-.lrow:hover .ds::after{transform:scaleX(1)}
+    /* Nav */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 16px 24px;
+      background: rgba(10,10,10,0.85);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+    .nav-brand span { color: var(--red2); }
+    .nav-links { display: flex; gap: 24px; }
+    .nav-links a { color: var(--text2); font-size: 0.9rem; font-weight: 500; }
+    .nav-links a:hover { color: var(--text); }
 
-/* install methods (asymmetric, NOT 3 equal cards) */
-.plug{display:grid;grid-template-columns:1.35fr .9fr;gap:18px}
-.pcard{background:var(--panel);border:1px solid var(--line);padding:26px;position:relative;overflow:hidden}
-.pcard.big{grid-row:span 2;background:linear-gradient(160deg,#2c2138,#1c2726)}
-.pcard h3{font-family:var(--disp);font-weight:700;font-size:26px;margin:0 0 6px}
-.pcard .who{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--teal)}
-.pcard ol{margin:16px 0 18px;padding-left:18px;color:var(--mute);font-size:14px}
-.pcard ol li{margin:6px 0}
-.pcard code{font-family:var(--mono);color:var(--bone);background:rgba(0,0,0,.3);padding:1px 6px;font-size:12px}
-.pcard .glow{position:absolute;width:160px;height:160px;border-radius:50%;right:-50px;bottom:-50px;
-  background:radial-gradient(circle,rgba(226,58,82,.25),transparent 70%);transition:transform .4s}
-.pcard:hover .glow{transform:scale(1.4)}
-
-/* counter band */
-.band{background:var(--paper);color:var(--paperink);padding:48px 0}
-.band .wrap{display:flex;flex-wrap:wrap;gap:40px;align-items:flex-end;justify-content:space-between}
-.num{font-family:var(--disp);font-weight:800;font-size:clamp(64px,12vw,150px);line-height:.8;color:var(--red)}
-.num.teal{color:#1f7a6f}
-.band .cap{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.7;margin-top:6px}
-
-/* big links */
-.links{display:flex;flex-direction:column;gap:6px}
-.lk{font-family:var(--disp);font-weight:800;font-size:clamp(28px,5vw,56px);text-decoration:none;color:var(--bone);
-  display:flex;justify-content:space-between;align-items:baseline;padding:14px 0;border-top:1px solid var(--line);
-  background:linear-gradient(var(--red),var(--red)) left bottom/0 3px no-repeat;transition:background-size .35s,color .35s}
-.lk:hover{background-size:100% 3px;color:#fff}
-.lk .ar{font-family:var(--mono);font-size:18px;color:var(--mute);transition:transform .3s,color .3s}
-.lk:hover .ar{transform:translateX(8px);color:var(--red)}
-
-footer{padding:46px 0 60px;border-top:1px solid var(--line);margin-top:30px}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;font-family:var(--mono);font-size:12px;color:var(--mute)}
-footer b{color:var(--bone)}
-
-/* reveal */
-[data-reveal]{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
-[data-reveal].in{opacity:1;transform:none}
-
-@media(max-width:820px){
-  .open{grid-template-columns:1fr;gap:30px}
-  .plug{grid-template-columns:1fr}
-  .pcard.big{grid-row:auto}
-  .lrow{grid-template-columns:46px 1fr;}.lrow .ct{grid-column:2}
-}
-@media(prefers-reduced-motion:reduce){
-  *{animation:none!important;transition:none!important}
-  [data-reveal]{opacity:1;transform:none}
-  .rcard{transform:none;opacity:1}h1 .cut::after{transform:scaleX(1) rotate(-3deg)}
-}
-</style>
+    @media (max-width: 600px) {
+      .nav-links { display: none; }
+      .hero-buttons { flex-direction: column; align-items: center; }
+    }
+  </style>
 </head>
 <body>
-<div class="grain"></div><div class="scan"></div>
 
-<div class="bar"><span><b>YT‑SHORTS‑BLOCK</b> // anti‑reel system</span><span><span class="dot"></span>rules active: <b id="bcount">60</b></span></div>
+  <!-- Navigation -->
+  <nav class="nav">
+    <div class="nav-brand">YT-Shorts-<span>Block</span></div>
+    <div class="nav-links">
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#platforms">Platforms</a>
+      <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block">GitHub</a>
+    </div>
+  </nav>
 
-<main class="wrap">
-  <section class="open">
-    <div>
-      <p class="kick">v3 · no bypass · no scroll‑jack</p>
-      <h1>Cut the<br><span class="cut">reel.</span></h1>
-      <p class="lede">A blocklist that doesn't just hide YouTube Shorts — it <b>erases the surface</b> they live on. The sidebar button, the homepage shelf, the channel tab, the <code style="font-family:var(--mono);color:var(--teal)">/shorts</code> URL, the API, the payload. All of it, gone.</p>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">100% Free &bull; Open Source &bull; No Tracking</div>
+    <h1>Block YouTube Shorts.<br><span class="highlight">Forever.</span></h1>
+    <p>The most comprehensive, multi-layered YouTube Shorts blocker. URL blocking, DOM hiding, CSS shielding, API interception. Zero bypass. Zero temptation.</p>
+    <div class="hero-buttons">
+      <a href="#install" class="btn btn-primary">Get Started Free</a>
+      <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block" class="btn btn-outline">View on GitHub</a>
+    </div>
+  </section>
 
-      <div class="slip">
-        <div class="lab">subscribe · one URL · any blocker</div>
-        <div class="url" id="listurl">https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/yt-shorts-block.txt</div>
-        <div class="row">
-          <span class="stamp">SHORTS&nbsp;✕</span>
-          <button class="btn mag" data-copy="#listurl">copy list url</button>
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat-item">
+      <div class="num">6</div>
+      <div class="label">Protection Layers</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">50+</div>
+      <div class="label">Filter Rules</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">0</div>
+      <div class="label">Data Collected</div>
+    </div>
+    <div class="stat-item">
+      <div class="num">100%</div>
+      <div class="label">Free Forever</div>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <section class="section" id="features">
+    <h2 class="section-title">Why YT-Shorts-Block?</h2>
+    <p class="section-sub">YouTube Shorts are engineered to be addictive. We block them at every possible layer so there is no bypass.</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">&#127760;</div>
+        <h3>URL Blocking</h3>
+        <p>All /shorts/ URLs are intercepted and redirected. Direct links, shared links, embedded links - all blocked before the page loads.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#127912;</div>
+        <h3>DOM Element Removal</h3>
+        <p>Every Shorts shelf, button, tab, and card is removed from the page. MutationObserver catches dynamically loaded content.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128737;</div>
+        <h3>CSS Shield</h3>
+        <p>Instant CSS rules hide Shorts elements at document_start - before you even see them. Zero flash of content.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128268;</div>
+        <h3>API Interception</h3>
+        <p>Shorts API calls to youtubei.googleapis.com are blocked. YouTube cannot even fetch Shorts data.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128241;</div>
+        <h3>Mobile Support</h3>
+        <p>Works on mobile YouTube (m.youtube.com), Android DNS blocking, and iOS content blockers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">&#128274;</div>
+        <h3>Privacy First</h3>
+        <p>Zero data collection. No tracking. No analytics. No external requests. Fully auditable open-source code.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Installation -->
+  <section class="section" id="install">
+    <h2 class="section-title">Install in 30 Seconds</h2>
+    <p class="section-sub">The fastest way: add our filter list to uBlock Origin or Brave Shields.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>
+          <h3>Open uBlock Origin Dashboard</h3>
+          <p>Click the uBlock icon &rarr; Dashboard &rarr; Filter lists tab. Scroll to the bottom.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>
+          <h3>Import Our Filter List</h3>
+          <p>Click "Import" and paste this URL:</p>
+          <code>https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/filter-lists/yt-shorts-ublock.txt</code>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>
+          <h3>Apply &amp; Enjoy</h3>
+          <p>Click "Apply changes". Refresh YouTube. Shorts are gone. Forever.</p>
         </div>
       </div>
     </div>
-
-    <div class="reel" aria-hidden="true">
-      <div class="rcard"><span class="tag">SHORTS</span><span class="tri"></span></div>
-      <div class="rcard"><span class="tag">SHORTS</span><span class="tri"></span></div>
-      <div class="rcard"><span class="tag">SHORTS</span><span class="tri"></span></div>
-      <div class="rcard"><span class="tag">SHORTS</span><span class="tri"></span></div>
-    </div>
-  </section>
-</main>
-
-<div class="marq"><div class="track" id="mq"></div></div>
-
-<main class="wrap">
-  <section class="sec" data-reveal>
-    <h2>What gets erased</h2>
-    <p class="sub">hover a row to redact it · 60 rules, 7 layers</p>
-    <div class="led">
-      <div class="lrow"><span class="ix">01</span><div><div class="nm">Sidebar &amp; nav button</div><div class="ds">the "Shorts" pill in your screenshot — desktop guide, mini‑guide, mobile pivot bar</div></div><span class="ct">12 rules</span></div>
-      <div class="lrow"><span class="ix">02</span><div><div class="nm">Direct URLs</div><div class="ds">/shorts, m./www./nocookie, youtu.be, @channel/shorts, ?feature=shorts — blocked at document level</div></div><span class="ct">16 rules</span></div>
-      <div class="lrow"><span class="ix">03</span><div><div class="nm">Reel API</div><div class="ds">reel_item_watch &amp; the reel endpoint — the data pipe cut</div></div><span class="ct">2 rules</span></div>
-      <div class="lrow"><span class="ix">04</span><div><div class="nm">Shelves &amp; tiles</div><div class="ds">homepage shelf, search results, recommendations, related, mobile sections</div></div><span class="ct">15 rules</span></div>
-      <div class="lrow"><span class="ix">05</span><div><div class="nm">Player overlays</div><div class="ds">reel player header, "Create Short / Remix" menu, is‑shorts surface</div></div><span class="ct">5 rules</span></div>
-      <div class="lrow"><span class="ix">06</span><div><div class="nm">Payload scriptlets</div><div class="ds">json‑prune the reel renderers + href‑sanitize every /shorts link</div></div><span class="ct">4 rules</span></div>
-      <div class="lrow"><span class="ix">07</span><div><div class="nm">Music · Kids · TV · embeds</div><div class="ds">every other surface that tries to slip a reel through</div></div><span class="ct">6 rules</span></div>
-    </div>
   </section>
 
-  <section class="sec" data-reveal>
-    <h2>Plug it in</h2>
-    <p class="sub">same URL · three homes · zero config</p>
-    <div class="plug">
-      <div class="pcard big">
-        <span class="glow"></span>
-        <div class="who">recommended</div>
-        <h3>uBlock Origin</h3>
-        <ol>
-          <li>Open the dashboard → <code>Filter lists</code></li>
-          <li>Scroll to <code>Import…</code> at the bottom</li>
-          <li>Paste the list URL → <code>Apply changes</code></li>
-          <li>Hard‑reload YouTube <code>Ctrl+Shift+R</code></li>
-        </ol>
-        <button class="btn mag" data-copy="#listurl">copy url</button>
+  <!-- Platforms -->
+  <section class="section" id="platforms">
+    <h2 class="section-title">Every Platform. Every Browser.</h2>
+    <p class="section-sub">From desktop to mobile, we have you covered.</p>
+    <div class="platform-grid">
+      <div class="platform-card">
+        <div class="platform-icon">&#128187;</div>
+        <h3>Windows</h3>
+        <p>PowerShell installer + hosts file + browser extension</p>
       </div>
-      <div class="pcard">
-        <span class="glow"></span>
-        <div class="who">built‑in</div>
-        <h3>Brave Shields</h3>
-        <ol><li><code>brave://adblock</code> → Custom filters → paste URL → apply.</li></ol>
-        <button class="btn mag" data-copy="#listurl">copy url</button>
+      <div class="platform-card">
+        <div class="platform-icon">&#128039;</div>
+        <h3>Linux</h3>
+        <p>Bash installer for all distros + hosts + dnsmasq</p>
       </div>
-      <div class="pcard">
-        <span class="glow"></span>
-        <div class="who">also works</div>
-        <h3>AdGuard</h3>
-        <ol><li>Filters → User rules / custom → add the URL.</li></ol>
-        <button class="btn mag" data-copy="#listurl">copy url</button>
+      <div class="platform-card">
+        <div class="platform-icon">&#127822;</div>
+        <h3>macOS</h3>
+        <p>Same Linux script works + Safari content blocker</p>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">&#128241;</div>
+        <h3>Android</h3>
+        <p>DNS blocking + AdGuard + Brave Browser</p>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">&#127823;</div>
+        <h3>iOS</h3>
+        <p>AdGuard content blocking + DNS profiles</p>
+      </div>
+      <div class="platform-card">
+        <div class="platform-icon">&#127760;</div>
+        <h3>All Browsers</h3>
+        <p>Chrome, Firefox, Edge, Brave, Opera</p>
       </div>
     </div>
   </section>
-</main>
 
-<section class="band" data-reveal>
-  <div class="wrap">
-    <div><div class="num" id="c1">0</div><div class="cap">rules loaded &amp; armed</div></div>
-    <div><div class="num teal" id="c2">0</div><div class="cap">reel surfaces collapsed this session</div></div>
-  </div>
-</section>
-
-<main class="wrap">
-  <section class="sec" data-reveal>
-    <h2>Take the source</h2>
-    <p class="sub">fork it · audit it · break it · fix it</p>
-    <div class="links">
-      <a class="lk" href="https://github.com/ShoumikBalaSomu/YT-shorts-Block" target="_blank" rel="noopener">GitHub repository<span class="ar">↗</span></a>
-      <a class="lk" href="https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/yt-shorts-block.txt" target="_blank" rel="noopener">raw blocklist<span class="ar">↗</span></a>
-      <a class="lk" href="https://shoumikbalasomu.github.io/YT-shorts-Block/" target="_blank" rel="noopener">GitHub Pages<span class="ar">↗</span></a>
+  <!-- CTA -->
+  <section class="section" style="text-align:center;">
+    <h2 class="section-title">Ready to Reclaim Your Time?</h2>
+    <p class="section-sub">Join thousands who have freed themselves from the Shorts trap.</p>
+    <div class="hero-buttons" style="justify-content:center;">
+      <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block" class="btn btn-primary">Star on GitHub</a>
+      <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block/issues/new?template=bug_report.md" class="btn btn-outline">Report a Bypass</a>
     </div>
   </section>
-</main>
 
-<footer><div class="wrap">
-  <span><b>MIT License</b> · © 2026 Shoumik Bala Somu</span>
-  <span>built to be shared · revoke any token you ever pasted in a chat</span>
-</div></footer>
+  <!-- Footer -->
+  <footer class="footer">
+    <p>YT-Shorts-Block &bull; MIT License &bull; Made with &#10084;&#65039; by <a href="https://github.com/ShoumikBalaSomu">ShoumikBalaSomu</a></p>
+    <p style="margin-top:8px;">
+      <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block">GitHub</a> &bull;
+      <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block/blob/main/CONTRIBUTING.md">Contribute</a> &bull;
+      <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block/issues">Issues</a>
+    </p>
+  </footer>
 
-<script>
-const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
-const URL = 'https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/yt-shorts-block.txt';
-
-/* marquee content */
-const toks = ['/shorts','@handle/shorts','?feature=shorts','reel_item_watch','ytd-reel-shelf-renderer',
-  'shortsLockupViewModel','m.youtube.com/shorts','reelShelfRenderer','is-shorts','json-prune','href-sanitizer','youtube-nocookie'];
-const one = toks.map(t=>t+'<span>✕</span>').join('  ');
-document.getElementById('mq').innerHTML = one+one;
-
-/* copy buttons */
-function copy(text, btn){
-  const done = ()=>{const o=btn.textContent;btn.textContent='copied ✓';btn.classList.add('ok');
-    setTimeout(()=>{btn.textContent=o;btn.classList.remove('ok')},1400);};
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(()=>fb(text,done));}
-  else fb(text,done);
-}
-function fb(text,done){const t=document.createElement('textarea');t.value=text;document.body.appendChild(t);t.select();
-  try{document.execCommand('copy');}catch(e){}t.remove();done();}
-document.querySelectorAll('[data-copy]').forEach(b=>b.addEventListener('click',()=>{
-  const sel=b.getAttribute('data-copy');copy(sel?document.querySelector(sel).textContent.trim():URL,b);}));
-
-/* magnetic */
-if(!RM){document.querySelectorAll('.mag').forEach(b=>{
-  b.addEventListener('mousemove',e=>{const r=b.getBoundingClientRect();
-    b.style.transform=`translate(${(e.clientX-r.left-r.width/2)*.25}px,${(e.clientY-r.top-r.height/2)*.35}px)`;});
-  b.addEventListener('mouseleave',()=>b.style.transform='');});}
-
-/* reveal + reel cut + counter */
-const io = new IntersectionObserver((es)=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');
-  if(en.target.querySelector&&en.target.querySelector('.num'))runCounters();io.unobserve(en.target);}}),{threshold:.18});
-document.querySelectorAll('[data-reveal]').forEach(el=>io.observe(el));
-
-if(!RM){document.querySelectorAll('.rcard').forEach((c,i)=>setTimeout(()=>c.classList.add('cut'),700+i*420));}
-else document.querySelectorAll('.rcard').forEach(c=>c.classList.add('cut'));
-
-let counted=false;
-function runCounters(){if(counted)return;counted=true;
-  ease(document.getElementById('c1'),60,1200);
-  let s=0;const c2=document.getElementById('c2');
-  if(RM){c2.textContent='∞';return;}
-  setInterval(()=>{s+=Math.ceil(Math.random()*3);c2.textContent=s.toLocaleString();},2300);}
-function ease(el,to,dur){const t0=performance.now();
-  (function f(t){const p=Math.min(1,(t-t0)/dur);el.textContent=Math.round((1-Math.pow(1-p,3))*to);if(p<1)requestAnimationFrame(f);})(t0);}
-</script>
 </body>
 </html>
