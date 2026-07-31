@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YT Shorts Blocklist - Ultimate YouTube Shorts Blocker</title>
+<meta name="description" content="The most advanced YouTube Shorts blocklist. Block ALL Shorts on every platform. No bypass possible.">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0f0f0f;color:#e8e8e8;line-height:1.6}
+.container{max-width:900px;margin:0 auto;padding:20px}
+.hero{text-align:center;padding:60px 20px;background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%);border-radius:16px;margin:20px 0}
+.hero h1{font-size:2.5em;margin-bottom:10px;background:linear-gradient(90deg,#ff4444,#ff6b6b,#ee5a24);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.2em;color:#aaa;margin-bottom:20px}
+.badge{display:inline-block;padding:6px 14px;border-radius:20px;font-size:0.85em;margin:4px;font-weight:600}
+.badge-red{background:#ff444422;color:#ff6b6b;border:1px solid #ff444444}
+.badge-green{background:#00c85322;color:#69f0ae;border:1px solid #00c85344}
+.badge-blue{background:#2979ff22;color:#82b1ff;border:1px solid #2979ff44}
+.card{background:#1a1a1a;border:1px solid #333;border-radius:12px;padding:24px;margin:16px 0}
+.card h2{color:#ff6b6b;margin-bottom:12px;font-size:1.3em}
+.card h3{color:#82b1ff;margin:16px 0 8px}
+code{background:#2a2a2a;padding:2px 8px;border-radius:4px;font-size:0.9em;color:#69f0ae}
+pre{background:#1e1e1e;border:1px solid #333;border-radius:8px;padding:16px;overflow-x:auto;margin:12px 0}
+pre code{background:none;padding:0;color:#e8e8e8}
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #333}
+th{color:#ff6b6b;font-weight:600}
+.btn{display:inline-block;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:700;margin:8px;transition:all .3s}
+.btn-primary{background:#ff4444;color:#fff}
+.btn-primary:hover{background:#ff6b6b;transform:translateY(-2px)}
+.btn-secondary{background:#333;color:#e8e8e8;border:1px solid #555}
+.btn-secondary:hover{background:#444;transform:translateY(-2px)}
+.check{color:#69f0ae}
+.cross{color:#ff6b6b}
+ul{padding-left:20px}
+li{margin:6px 0}
+.footer{text-align:center;padding:30px;color:#666;font-size:0.9em}
+a{color:#82b1ff}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="hero">
+<h1>&#128683; YT Shorts Blocklist</h1>
+<p>The most advanced YouTube Shorts blocker. No bypass possible.</p>
+<div>
+<span class="badge badge-red">85+ Rules</span>
+<span class="badge badge-green">All Platforms</span>
+<span class="badge badge-blue">Zero Bypass</span>
+</div>
+<br><br>
+<a class="btn btn-primary" href="https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/yt-shorts-block.txt" target="_blank">&#128229; Get Blocklist</a>
+<a class="btn btn-secondary" href="https://github.com/ShoumikBalaSomu/YT-shorts-Block" target="_blank">&#11088; GitHub Repo</a>
+</div>
+
+<div class="card">
+<h2>&#128230; Quick Install</h2>
+<h3>uBlock Origin</h3>
+<p>Dashboard &#8594; Filter lists &#8594; Import &#8594; Paste URL:</p>
+<pre><code>https://raw.githubusercontent.com/ShoumikBalaSomu/YT-shorts-Block/main/yt-shorts-block.txt</code></pre>
+<h3>Brave Browser</h3>
+<p>Go to <code>brave://settings/shields/filters</code> &#8594; Paste URL &#8594; Apply</p>
+<h3>AdGuard</h3>
+<p>Filters &#8594; Custom &#8594; Add custom filter &#8594; Paste URL</p>
+</div>
+
+<div class="card">
+<h2>&#128737;&#65039; What Gets Blocked</h2>
+<table>
+<tr><th>Category</th><th>Coverage</th></tr>
+<tr><td>&#127760; URL Blocking</td><td>/shorts/*, mobile, channel tabs, redirects, embeds, YT Music, YT Kids</td></tr>
+<tr><td>&#127912; Element Hiding</td><td>Homepage shelf, nav tab, search results, sidebar, player overlay, mobile UI</td></tr>
+<tr><td>&#128137; Script Injection</td><td>JSON pruning for Shorts data (10+ scriptlet rules)</td></tr>
+<tr><td>&#128274; Bypass Prevention</td><td>Redirect chains, embedded shorts, @channel/shorts, youtu.be/shorts, TV</td></tr>
+<tr><td>&#128225; API Blocking</td><td>reel_item_watch, reel_watch_sequence, reelShelfRenderer, shortsLockupViewModel</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>&#10060; All Bypass Methods Blocked</h2>
+<ul>
+<li><span class="cross">&#10060;</span> Direct URL: youtube.com/shorts/VIDEO_ID</li>
+<li><span class="cross">&#10060;</span> Mobile: m.youtube.com/shorts/VIDEO_ID</li>
+<li><span class="cross">&#10060;</span> Channel tab: youtube.com/@Channel/shorts</li>
+<li><span class="cross">&#10060;</span> Search results with Shorts</li>
+<li><span class="cross">&#10060;</span> Homepage Shorts shelf</li>
+<li><span class="cross">&#10060;</span> Sidebar recommendations</li>
+<li><span class="cross">&#10060;</span> ?feature=shorts parameter</li>
+<li><span class="cross">&#10060;</span> youtu.be/shorts/ redirects</li>
+<li><span class="cross">&#10060;</span> Embedded Shorts</li>
+<li><span class="cross">&#10060;</span> YouTube TV / Music / Kids</li>
+<li><span class="cross">&#10060;</span> API-level data injection</li>
+<li><span class="cross">&#10060;</span> JSON payload rendering</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>&#128202; Stats</h2>
+<ul>
+<li><span class="check">&#9989;</span> 30 network/URL blocking rules</li>
+<li><span class="check">&#9989;</span> 36 element hiding rules</li>
+<li><span class="check">&#9989;</span> 14 scriptlet injection rules</li>
+<li><span class="check">&#9989;</span> 5 platform-specific overrides</li>
+<li><span class="check">&#9989;</span> Updated: July 31, 2026</li>
+</ul>
+</div>
+
+<div class="footer">
+<p>&#169; 2026 ShoumikBalaSomu | MIT License | <a href="https://github.com/ShoumikBalaSomu/YT-shorts-Block">GitHub</a></p>
+</div>
+</div>
+</body>
+</html>
