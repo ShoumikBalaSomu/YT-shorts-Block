@@ -1,26 +1,7 @@
-# ============================================================
-# YT-Shorts-Block — Hosts File v2.0
-# ============================================================
-# Version:      2026.07.31.2
-# Author:       ShoumikBalaSomu
-# License:      MIT
-# Homepage:     https://github.com/ShoumikBalaSomu/YT-shorts-Block
-#
-# WARNING: Do NOT block youtube.com or www.youtube.com!
-#          Shorts are path-based (/shorts/*), not domain-based.
-# ============================================================
-
-# Shorts-specific subdomains
-0.0.0.0 shorts.youtube.com
-0.0.0.0 reel.youtube.com
-0.0.0.0 shorts-ads.youtube.com
-0.0.0.0 i-shorts.ytimg.com
-0.0.0.0 shorts.ytimg.com
-
-# ============================================================
-# INSTRUCTIONS:
-# Linux/macOS:  sudo cp yt-shorts-hosts.txt /etc/hosts
-# Windows:      Copy to C:\Windows\System32\drivers\etc\hosts
-# Android:      Use DNS66 or Blokada app
-# Router:       Add to Pi-hole or AdGuard Home blocklist
-# ============================================================
+# YT-Shorts-Block Hosts File v3.0.0
+# YouTube shorts are served from the main youtube.com domain.
+# DNS-level blocking cannot selectively block shorts without breaking all of YouTube.
+# Use the uBlock filter list or browser extension for targeted blocking.
+# This file is provided for completeness and future-proofing.
+# 0.0.0.0 shorts.youtube.com
+# 0.0.0.0 reel.youtube.com
