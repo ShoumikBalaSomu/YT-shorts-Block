@@ -1,93 +1,67 @@
 /**
- * YT-Shorts-Block - Background Service Worker
- * Manages extension state and declarativeNetRequest rules
- * 
- * @author ShoumikBalaSomu
- * @license MIT
+ * YT Shorts Block -- Background Service Worker (Manifest V3)
  */
 
-const ENABLED_KEY = 'ytShortsBlockEnabled';
-const BLOCK_COUNT_KEY = 'ytShortsBlockCount';
-const RULE_IDS = [1, 2, 3, 4, 5, 6, 7];
-
-// On install, set default state
 chrome.runtime.onInstalled.addListener(function (details) {
-  if (details.reason === 'install') {
+  if (details.reason === "install") {
     chrome.storage.local.set({
-      [ENABLED_KEY]: true,
-      [BLOCK_COUNT_KEY]: 0
+      enabled: true,
+      blockCount: 0,
+      installDate: Date.now(),
+      version: chrome.runtime.getManifest().version
     });
-    enableRules();
   }
-});
-
-// Listen for storage changes (toggle from popup)
-chrome.storage.onChanged.addListener(function (changes) {
-  if (changes[ENABLED_KEY]) {
-    const enabled = changes[ENABLED_KEY].newValue;
-    if (enabled) {
-      enableRules();
-    } else {
-      disableRules();
-    }
+  if (details.reason === "update") {
+    chrome.storage.local.set({ version: chrome.runtime.getManifest().version });
   }
-});
-
-// Enable all blocking rules
-async function enableRules() {
-  try {
-    const existingRules = await chrome.declarativeNetRequest.getDynamicRules();
-    const existingIds = existingRules.map(r => r.id);
-    
-    if (existingIds.length > 0) {
-      await chrome.declarativeNetRequest.updateDynamicRules({
-        removeRuleIds: existingIds
-      });
-    }
-
-    // Rules are in rules.json (static), just make sure they're enabled
-    const enabledRulesets = await chrome.declarativeNetRequest.getEnabledRulesets();
-    if (!enabledRulesets.includes('shorts_block_rules')) {
-      await chrome.declarativeNetRequest.updateEnabledRulesets({
-        enableRulesetIds: ['shorts_block_rules']
-      });
-    }
-    
-    updateBadge(true);
-  } catch (e) {
-    console.warn('YT-Shorts-Block: Rule management error', e);
-  }
-}
-
-// Disable all blocking rules
-async function disableRules() {
-  try {
-    await chrome.declarativeNetRequest.updateEnabledRulesets({
-      disableRulesetIds: ['shorts_block_rules']
-    });
-    updateBadge(false);
-  } catch (e) {
-    console.warn('YT-Shorts-Block: Rule disable error', e);
-  }
-}
-
-// Update extension badge
-function updateBadge(enabled) {
-  const text = enabled ? 'ON' : 'OFF';
-  const color = enabled ? '#4CAF50' : '#F44336';
-  
-  chrome.action.setBadgeText({ text: text });
-  chrome.action.setBadgeBackgroundColor({ color: color });
-}
-
-// Initialize badge on startup
-chrome.runtime.onStartup.addListener(function () {
-  chrome.storage.local.get([ENABLED_KEY], function (data) {
-    updateBadge(data[ENABLED_KEY] !== false);
+  chrome.contextMenus.create({
+    id: "ytsb-toggle",
+    title: "Toggle YT Shorts Block",
+    contexts: ["action"]
   });
 });
 
-// Initial badge
-chrome.storage.local.get([ENABLED_KEY], function (data) {
-  updateBadge(data[ENABLED_KEY] !== false);
+chrome.storage.onChanged.addListener(function (changes) {
+  if (changes.enabled) {
+    var isEnabled = changes.enabled.newValue;
+    chrome.declarativeNetRequest.updateEnabledRulesets({
+      enableRulesetIds: isEnabled ? ["yt_shorts_rules"] : [],
+      disableRulesetIds: isEnabled ? [] : ["yt_shorts_rules"]
+    });
+  }
+});
+
+chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
+  if (msg.type === "GET_STATE") {
+    chrome.storage.local.get(["enabled", "blockCount"], function (data) {
+      sendResponse({ enabled: data.enabled !== false, count: data.blockCount || 0 });
+    });
+    return true;
+  }
+  if (msg.type === "TOGGLE") {
+    chrome.storage.local.set({ enabled: msg.enabled });
+    chrome.tabs.query({ url: "*://*.youtube.com/*" }, function (tabs) {
+      tabs.forEach(function (tab) {
+        chrome.tabs.sendMessage(tab.id, { type: "TOGGLE", enabled: msg.enabled }).catch(function () {});
+      });
+    });
+    sendResponse({ ok: true });
+    return true;
+  }
+  if (msg.type === "BLOCK_COUNT") {
+    chrome.storage.local.get(["blockCount"], function (data) {
+      var newCount = (data.blockCount || 0) + (msg.count || 0);
+      chrome.storage.local.set({ blockCount: newCount });
+      sendResponse({ count: newCount });
+    });
+    return true;
+  }
+});
+
+chrome.contextMenus.onClicked.addListener(function (info) {
+  if (info.menuItemId === "ytsb-toggle") {
+    chrome.storage.local.get(["enabled"], function (data) {
+      chrome.storage.local.set({ enabled: !(data.enabled !== false) });
+    });
+  }
 });
