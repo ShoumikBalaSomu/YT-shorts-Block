@@ -1,69 +1,30 @@
-/**
- * ============================================================
- * YT-Shorts-Block — Background Service Worker v2.0
- * ============================================================
- * Manages declarativeNetRequest rules, badge, and messaging.
- *
- * @author  ShoumikBalaSomu
- * @license MIT
- * ============================================================
- */
-
-// Set badge on install
-chrome.runtime.onInstalled.addListener(function (details) {
-  chrome.action.setBadgeText({ text: 'ON' });
-  chrome.action.setBadgeBackgroundColor({ color: '#e53935' });
-  console.log('[YT-Shorts-Block] Installed/Updated:', details.reason);
-});
-
-// Handle messages from popup
-chrome.runtime.onMessage.addListener(function (msg, sender, sendResponse) {
-  if (msg.type === 'GET_STATE') {
-    chrome.storage.local.get(['ytShortsBlockEnabled', 'ytShortsBlockCount'], function (data) {
-      sendResponse({
-        enabled: data.ytShortsBlockEnabled !== false,
-        count: data.ytShortsBlockCount || 0,
-      });
-    });
-    return true;
-  }
-
-  if (msg.type === 'SET_ENABLED') {
-    chrome.storage.local.set({ ytShortsBlockEnabled: msg.enabled });
-    chrome.action.setBadgeText({ text: msg.enabled ? 'ON' : 'OFF' });
-    chrome.action.setBadgeBackgroundColor({ color: msg.enabled ? '#e53935' : '#757575' });
-
-    // Enable/disable DNR rules
-    if (msg.enabled) {
-      chrome.declarativeNetRequest.updateEnabledRulesets({
-        enableRulesetIds: ['yt_shorts_rules'],
-      });
-    } else {
-      chrome.declarativeNetRequest.updateEnabledRulesets({
-        disableRulesetIds: ['yt_shorts_rules'],
-      });
+// YT-SHORTS-BLOCK v3.0 - Background Service Worker
+chrome.runtime.onInstalled.addListener(async function() {
+  var scripts = [{id:'yt-shorts-page-script',world:'MAIN',matches:['*://www.youtube.com/*','*://m.youtube.com/*','*://youtube.com/*'],runAt:'document_start',js:['page-script.js']}];
+  try { await chrome.scripting.unregisterContentScripts({ids:['yt-shorts-page-script']}); } catch(e) {}
+  try { await chrome.scripting.registerContentScripts(scripts); } catch(e) {}
+  try {
+    var tabs = await chrome.tabs.query({url:['*://www.youtube.com/*','*://m.youtube.com/*']});
+    for (var i=0;i<tabs.length;i++) {
+      try { await chrome.scripting.executeScript({target:{tabId:tabs[i].id},files:['page-script.js'],injectImmediately:true,world:'MAIN'}); } catch(e) {}
     }
-    sendResponse({ ok: true });
-    return true;
-  }
-
-  if (msg.type === 'RESET_COUNT') {
-    chrome.storage.local.set({ ytShortsBlockCount: 0 });
-    sendResponse({ ok: true });
-    return true;
+  } catch(e) {}
+});
+chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab) {
+  if (changeInfo.url && /\/shorts\//.test(changeInfo.url)) {
+    var m = changeInfo.url.match(/\/shorts\/([a-zA-Z0-9_-]{11})/);
+    chrome.tabs.update(tabId, {url: m ? 'https://www.youtube.com/watch?v='+m[1] : 'https://www.youtube.com/'});
   }
 });
-
-// Listen for tab updates to catch shorts URLs that bypass DNR
-chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  if (changeInfo.url && /youtube\.com\/shorts/i.test(changeInfo.url)) {
-    chrome.tabs.update(tabId, { url: 'https://www.youtube.com/' });
+chrome.webNavigation.onHistoryStateUpdated.addListener(function(d) {
+  if (d.url && /\/shorts\//.test(d.url)) {
+    var m = d.url.match(/\/shorts\/([a-zA-Z0-9_-]{11})/);
+    chrome.tabs.update(d.tabId, {url: m ? 'https://www.youtube.com/watch?v='+m[1] : 'https://www.youtube.com/'});
   }
-});
-
-// Also catch web navigation
-chrome.webNavigation.onBeforeNavigate.addListener(function (details) {
-  if (details.frameId === 0 && /youtube\.com\/shorts/i.test(details.url)) {
-    chrome.tabs.update(details.tabId, { url: 'https://www.youtube.com/' });
+}, {url:[{hostSuffix:'youtube.com'},{hostSuffix:'www.youtube.com'},{hostSuffix:'m.youtube.com'}]});
+chrome.webNavigation.onBeforeNavigate.addListener(function(d) {
+  if (d.url && /\/shorts\//.test(d.url) && d.frameId===0) {
+    var m = d.url.match(/\/shorts\/([a-zA-Z0-9_-]{11})/);
+    chrome.tabs.update(d.tabId, {url: m ? 'https://www.youtube.com/watch?v='+m[1] : 'https://www.youtube.com/'});
   }
-}, { url: [{ hostSuffix: 'youtube.com' }] });
+}, {url:[{hostSuffix:'youtube.com'},{hostSuffix:'www.youtube.com'},{hostSuffix:'m.youtube.com'}]});
